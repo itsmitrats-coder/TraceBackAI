@@ -362,38 +362,36 @@
     {
       "user_id": "usr_student_1",
       "reporter_name": "Alex Rivera",
-      "title": "Dark Green Insulated Bottle",
+      "title": "pink water bottle",
       "category": "Bottles",
-      "description": "Lost my tall green metal vacuum bottle with black flex cap near the 2nd floor library.",
+      "description": "baby pink, medium sizes, lululemon bottle",
       "location": "Central Library",
       "coordinates": {
         "lat": 37.7749,
         "lng": -122.4194
       },
-      "lost_at": "Yesterday, 3:00 PM",
-      "image_url": "https://images.unsplash.com/photo-1602143407151-7111542de6e8",
-      "private_clue": "Underneath the base there is a NASA astronaut decal.",
-      "status": "recovered",
+      "lost_at": "Today, within the last 2 hours",
+      "image_url": "http://127.0.0.1:8000/uploads/img_d4ee7a55898f.webp",
+      "private_clue": "there is a dent at the bottom",
+      "status": "open",
       "fingerprint": {
         "object_type": "Insulated Water Bottle",
         "brand": null,
-        "primary_color": "Dark Green",
+        "primary_color": "Unknown",
         "secondary_colors": [],
-        "material": "Metal",
+        "material": null,
         "shape_size": "Tall Cylindrical",
         "visible_text": [],
         "logos": [],
-        "distinctive_marks": [
-          "Dent on bottom edge"
-        ],
+        "distinctive_marks": [],
         "accessories": [],
         "location": "Central Library",
-        "event_time": "Yesterday, 3:00 PM",
+        "event_time": "Today, within the last 2 hours",
         "embedding": null,
         "confidence": 86.5
       },
-      "id": "lost_27ae8282",
-      "created_at": "2026-10-05T08:08:01.127738"
+      "id": "lost_87a28084",
+      "created_at": "2026-10-05T08:25:52.668839"
     }
   ],
   "found_items": [
@@ -604,7 +602,7 @@
         "event_time": "Yesterday, 6:15 PM",
         "confidence": 88.0
       },
-      "status": "recovered",
+      "status": "open",
       "created_at": "2026-10-04T05:29:01.101452"
     },
     {
@@ -876,35 +874,6 @@
       "handover_by": "Officer Marcus Vance",
       "handover_at": "2026-10-05T08:01:20.803918",
       "handover_notes": "Handed over to Alex Rivera. Photo ID checked."
-    },
-    {
-      "found_item_id": "found_bottle_102",
-      "lost_item_id": "lost_27ae8282",
-      "claimant_id": "usr_student_1",
-      "claimant_name": "Alex Rivera",
-      "claimant_email": "student@traceback.demo",
-      "identifying_evidence": "My bottle has a NASA astronaut decal sticker near the base and a tiny scratch.",
-      "proof_image_url": null,
-      "verification_score": 95.0,
-      "verification_summary": "The claimant provided specific identifying information aligning closely with the protected ownership clue.",
-      "verification_alignments": [
-        "High correlation with protected owner private clue",
-        "Semantic coherence with known item specifics"
-      ],
-      "verification_concerns": [
-        "Physical detail 'Dent on bottom edge' was not corroborated in claim text"
-      ],
-      "recommendation": "RECOMMEND APPROVAL: Strong corroboration with private evidence",
-      "status": "handed_over",
-      "reviewed_by": "usr_staff_1",
-      "reviewer_name": "Officer Marcus Vance",
-      "review_reason": "Student provided physical verification of decal; confirmed matching custody item.",
-      "reviewed_at": "2026-10-05T08:08:01.207065",
-      "id": "claim_276b246b",
-      "created_at": "2026-10-05T08:08:01.179247",
-      "handover_by": "Officer Marcus Vance",
-      "handover_at": "2026-10-05T08:08:01.229094",
-      "handover_notes": "Student showed ID and picked up from Central Library bin A-14."
     }
   ],
   "notifications": [
@@ -1006,67 +975,7 @@
       "link": "/my-reports",
       "id": "notif_dcfe4fd0",
       "created_at": "2026-10-05T08:01:20.821677",
-      "is_read": false
-    },
-    {
-      "user_id": "usr_student_1",
-      "title": "Potential Match Found (75%)",
-      "message": "TraceBack discovered a candidate for your Dark Green Insulated Bottle at Student Cafeteria.",
-      "type": "match_found",
-      "link": "/matches/lost_27ae8282",
-      "id": "notif_02b0306c",
-      "created_at": "2026-10-05T08:08:01.140590",
-      "is_read": false
-    },
-    {
-      "user_id": "usr_student_1",
-      "title": "Claim Submitted",
-      "message": "Your claim for 'Olive Green Stanley Travel Tumbler' is pending campus staff review.",
-      "type": "claim_submitted",
-      "link": "/claims",
-      "id": "notif_bc284b95",
-      "created_at": "2026-10-05T08:08:01.187876",
-      "is_read": false
-    },
-    {
-      "user_id": "usr_staff_1",
-      "title": "New Claim Pending Review",
-      "message": "Alex Rivera submitted a claim for 'Olive Green Stanley Travel Tumbler'. AI Confidence: 95.0%",
-      "type": "claim_submitted",
-      "link": "/staff",
-      "id": "notif_1cd85ff5",
-      "created_at": "2026-10-05T08:08:01.191124",
-      "is_read": false
-    },
-    {
-      "user_id": "usr_admin_1",
-      "title": "New Claim Pending Review",
-      "message": "Alex Rivera submitted a claim for 'Olive Green Stanley Travel Tumbler'. AI Confidence: 95.0%",
-      "type": "claim_submitted",
-      "link": "/staff",
-      "id": "notif_8804c038",
-      "created_at": "2026-10-05T08:08:01.195137",
-      "is_read": false
-    },
-    {
-      "user_id": "usr_student_1",
-      "title": "Claim Approved!",
-      "message": "Your claim was approved by Officer Marcus Vance. Please proceed to campus custody for collection.",
-      "type": "claim_approved",
-      "link": "/claims",
-      "id": "notif_a3ed8cb8",
-      "created_at": "2026-10-05T08:08:01.217400",
-      "is_read": false
-    },
-    {
-      "user_id": "usr_student_1",
-      "title": "Item Recovered! ✓",
-      "message": "Your item has been successfully handed over by Officer Marcus Vance. Another trace completed!",
-      "type": "item_recovered",
-      "link": "/my-reports",
-      "id": "notif_dd2bf1f4",
-      "created_at": "2026-10-05T08:08:01.238364",
-      "is_read": false
+      "is_read": true
     }
   ],
   "audit_logs": [
@@ -1308,98 +1217,95 @@
       "metadata": {}
     },
     {
-      "id": "audit_9c869cd1",
+      "id": "audit_7f6d0f83",
       "actor_id": "usr_student_1",
       "actor_name": "Alex Rivera",
       "actor_role": "student",
       "action": "USER_LOGIN",
       "target_type": "user",
       "target_id": "usr_student_1",
-      "timestamp": "2026-10-05T08:08:01.104736",
+      "timestamp": "2026-10-05T08:23:00.712255",
       "metadata": {}
     },
     {
-      "id": "audit_fd9bbbb1",
+      "id": "audit_6f608fa3",
       "actor_id": "usr_staff_1",
       "actor_name": "Officer Marcus Vance",
       "actor_role": "staff",
       "action": "USER_LOGIN",
       "target_type": "user",
       "target_id": "usr_staff_1",
-      "timestamp": "2026-10-05T08:08:01.112894",
+      "timestamp": "2026-10-05T08:23:03.186557",
       "metadata": {}
     },
     {
-      "id": "audit_ce13c298",
+      "id": "audit_f8a0b1e5",
+      "actor_id": "usr_student_1",
+      "actor_name": "Alex Rivera",
+      "actor_role": "student",
+      "action": "USER_LOGIN",
+      "target_type": "user",
+      "target_id": "usr_student_1",
+      "timestamp": "2026-10-05T08:23:06.531101",
+      "metadata": {}
+    },
+    {
+      "id": "audit_3f958959",
+      "actor_id": "usr_student_1",
+      "actor_name": "Alex Rivera",
+      "actor_role": "student",
+      "action": "USER_LOGIN",
+      "target_type": "user",
+      "target_id": "usr_student_1",
+      "timestamp": "2026-10-05T08:23:15.316845",
+      "metadata": {}
+    },
+    {
+      "id": "audit_40c09f60",
       "actor_id": "usr_student_1",
       "actor_name": "Alex Rivera",
       "actor_role": "student",
       "action": "REPORT_LOST_ITEM",
       "target_type": "lost_item",
-      "target_id": "lost_27ae8282",
-      "timestamp": "2026-10-05T08:08:01.135188",
+      "target_id": "lost_87a28084",
+      "timestamp": "2026-10-05T08:25:52.722201",
       "metadata": {
         "category": "Bottles",
         "location": "Central Library"
       }
     },
     {
-      "id": "audit_7a0c21bf",
-      "actor_id": "usr_student_1",
-      "actor_name": "Alex Rivera",
-      "actor_role": "student",
-      "action": "DETECTIVE_QUESTION_ANSWERED",
-      "target_type": "lost_item",
-      "target_id": "lost_27ae8282",
-      "timestamp": "2026-10-05T08:08:01.162753",
-      "metadata": {
-        "answer": "YES",
-        "attribute": "mark:Dent on bottom edge"
-      }
-    },
-    {
-      "id": "audit_91aa9180",
-      "actor_id": "usr_student_1",
-      "actor_name": "Alex Rivera",
-      "actor_role": "student",
-      "action": "SUBMIT_CLAIM",
-      "target_type": "claim",
-      "target_id": "claim_276b246b",
-      "timestamp": "2026-10-05T08:08:01.198284",
-      "metadata": {
-        "found_item_id": "found_bottle_102",
-        "verification_score": 95.0
-      }
-    },
-    {
-      "id": "audit_54b30dec",
+      "id": "audit_5da6759e",
       "actor_id": "usr_staff_1",
       "actor_name": "Officer Marcus Vance",
       "actor_role": "staff",
-      "action": "CLAIM_APPROVED",
-      "target_type": "claim",
-      "target_id": "claim_276b246b",
-      "timestamp": "2026-10-05T08:08:01.221139",
-      "metadata": {
-        "reason": "Student provided physical verification of decal; confirmed matching custody item.",
-        "claimant_id": "usr_student_1",
-        "found_item_id": "found_bottle_102"
-      }
+      "action": "USER_LOGIN",
+      "target_type": "user",
+      "target_id": "usr_staff_1",
+      "timestamp": "2026-10-05T08:27:39.477818",
+      "metadata": {}
     },
     {
-      "id": "audit_1e8ef4f3",
-      "actor_id": "usr_staff_1",
-      "actor_name": "Officer Marcus Vance",
-      "actor_role": "staff",
-      "action": "MARK_RECOVERED",
-      "target_type": "item",
-      "target_id": "found_bottle_102",
-      "timestamp": "2026-10-05T08:08:01.240616",
-      "metadata": {
-        "claim_id": "claim_276b246b",
-        "recipient": "Alex Rivera",
-        "notes": "Student showed ID and picked up from Central Library bin A-14."
-      }
+      "id": "audit_37ab79cb",
+      "actor_id": "usr_admin_1",
+      "actor_name": "Dr. Sarah Chen",
+      "actor_role": "admin",
+      "action": "USER_LOGIN",
+      "target_type": "user",
+      "target_id": "usr_admin_1",
+      "timestamp": "2026-10-05T08:28:13.982931",
+      "metadata": {}
+    },
+    {
+      "id": "audit_f2a07897",
+      "actor_id": "usr_student_1",
+      "actor_name": "Alex Rivera",
+      "actor_role": "student",
+      "action": "USER_LOGIN",
+      "target_type": "user",
+      "target_id": "usr_student_1",
+      "timestamp": "2026-10-05T08:28:19.876251",
+      "metadata": {}
     }
   ]
 }

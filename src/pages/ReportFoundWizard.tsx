@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { api } from '../services/api';
 import { FoundItem } from '../types';
-import { Package, ArrowRight, Upload, MapPin, Clock, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { Package, ArrowRight, Upload, MapPin, Clock, CheckCircle2, HeartHandshake } from 'lucide-react';
 
 interface ReportFoundWizardProps {
   onCompleted: (foundItemId: string) => void;
@@ -16,7 +16,7 @@ export const ReportFoundWizard: React.FC<ReportFoundWizardProps> = ({
   const [category, setCategory] = useState('Bottles');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('Central Library');
-  const [custodyLocation, setCustodyLocation] = useState('Central Library Information Desk (Bin A-14)');
+  const [custodyLocation, setCustodyLocation] = useState('Central Library Front Desk (Bin A-14)');
   const [foundAt, setFoundAt] = useState('Today, 2:00 PM');
   const [imageUrl, setImageUrl] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -67,37 +67,40 @@ export const ReportFoundWizard: React.FC<ReportFoundWizardProps> = ({
   };
 
   return (
-    <div className="max-w-2xl mx-auto py-6 animate-fade-in">
+    <div className="max-w-2xl mx-auto py-4 animate-fade-in">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-400 font-bold block mb-0.5">
-            CAMPUS CUSTODY REGISTRATION
+          <span className="text-xs font-bold uppercase tracking-wider text-[#E53935] block mb-0.5">
+            FOUND AN ITEM
           </span>
-          <h2 className="text-2xl font-black text-white">Log Found Belonging</h2>
+          <h2 className="text-2xl font-black text-[#171717]">Log a Found Item</h2>
+          <p className="text-xs text-[#666666]">
+            Help return it to the person who lost it on campus.
+          </p>
         </div>
         <button
           onClick={onCancel}
-          className="text-xs text-slate-400 hover:text-white transition px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800"
+          className="text-xs text-[#666666] hover:text-[#171717] px-3.5 py-1.5 rounded-xl border border-[#EAEAEA] bg-white transition hover:bg-[#F9F9F9]"
         >
           Cancel
         </button>
       </div>
 
-      <form onSubmit={handleSubmit} className="rounded-3xl bg-slate-900/90 border border-slate-800 p-8 shadow-2xl space-y-6">
+      <form onSubmit={handleSubmit} className="rounded-3xl bg-white border border-[#EAEAEA] p-6 sm:p-8 shadow-xs space-y-6">
         <div>
-          <label className="block text-xs font-mono uppercase text-slate-400 mb-2">Item Name / Title *</label>
+          <label className="block text-xs font-bold text-[#171717] mb-2">Item Title / Name *</label>
           <input
             type="text"
             required
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="e.g. Dark Green Metal Insulated Flask"
-            className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm focus:outline-none focus:border-emerald-500"
+            placeholder="e.g. Dark Green Insulated Flask or Blue Lanyard with Keys"
+            className="w-full px-4 py-3 rounded-xl border border-[#EAEAEA] text-[#171717] text-sm focus:outline-none focus:border-[#E53935] focus:ring-2 focus:ring-[#FFF0F0] transition"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-mono uppercase text-slate-400 mb-2">Category *</label>
+          <label className="block text-xs font-bold text-[#171717] mb-2">Category *</label>
           <div className="grid grid-cols-3 gap-2">
             {categories.map((cat) => (
               <button
@@ -106,8 +109,8 @@ export const ReportFoundWizard: React.FC<ReportFoundWizardProps> = ({
                 onClick={() => setCategory(cat)}
                 className={`py-2 px-3 rounded-xl text-xs font-medium text-center border transition ${
                   category === cat
-                    ? 'bg-emerald-600/30 text-emerald-300 border-emerald-500 font-bold'
-                    : 'bg-slate-950/60 text-slate-400 border-slate-800 hover:text-white'
+                    ? 'bg-[#FFF0F0] text-[#E53935] border-[#E53935] font-bold'
+                    : 'bg-white text-[#666666] border-[#EAEAEA] hover:border-[#171717]'
                 }`}
               >
                 {cat}
@@ -117,24 +120,24 @@ export const ReportFoundWizard: React.FC<ReportFoundWizardProps> = ({
         </div>
 
         <div>
-          <label className="block text-xs font-mono uppercase text-slate-400 mb-2">Description & Observed Features *</label>
+          <label className="block text-xs font-bold text-[#171717] mb-2">Description & Notable Features *</label>
           <textarea
             required
             rows={3}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Describe visible condition, color, stickers, engravings, where precisely it was found..."
-            className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm focus:outline-none focus:border-emerald-500 resize-none"
+            placeholder="Describe visible condition, color, markings, stickers, engravings, where exactly on campus you saw it..."
+            className="w-full px-4 py-3 rounded-xl border border-[#EAEAEA] text-[#171717] text-sm focus:outline-none focus:border-[#E53935] focus:ring-2 focus:ring-[#FFF0F0] resize-none transition"
           />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-mono uppercase text-slate-400 mb-2">Campus Zone Where Found</label>
+            <label className="block text-xs font-bold text-[#171717] mb-2">Campus Zone Where Found</label>
             <select
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-emerald-500"
+              className="w-full px-4 py-3 rounded-xl border border-[#EAEAEA] bg-white text-[#171717] text-xs focus:outline-none focus:border-[#E53935] transition"
             >
               {campusLocations.map((loc) => (
                 <option key={loc} value={loc}>{loc}</option>
@@ -143,27 +146,28 @@ export const ReportFoundWizard: React.FC<ReportFoundWizardProps> = ({
           </div>
 
           <div>
-            <label className="block text-xs font-mono uppercase text-slate-400 mb-2">Current Custody Drop-off Point</label>
+            <label className="block text-xs font-bold text-[#171717] mb-2">Drop-off / Custody Location</label>
             <input
               type="text"
               value={custodyLocation}
               onChange={(e) => setCustodyLocation(e.target.value)}
-              placeholder="e.g. Central Library Front Desk • Locker B"
-              className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-emerald-500"
+              placeholder="e.g. Central Library Front Desk • Bin A-14"
+              className="w-full px-4 py-3 rounded-xl border border-[#EAEAEA] text-[#171717] text-xs focus:outline-none focus:border-[#E53935] transition"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-mono uppercase text-slate-400 mb-2">Item Photograph</label>
+          <label className="block text-xs font-bold text-[#171717] mb-2">Photo of Item</label>
           <div className="flex items-center gap-4">
-            <label className="flex-1 border-2 border-dashed border-slate-700 hover:border-emerald-500 rounded-2xl p-4 text-center cursor-pointer transition bg-slate-950/40">
-              <Upload className="w-6 h-6 mx-auto mb-2 text-slate-400" />
-              <span className="text-xs text-slate-300 block font-medium">Upload Found Item Photo</span>
+            <label className="flex-1 border-2 border-dashed border-[#EAEAEA] hover:border-[#E53935] rounded-2xl p-4 text-center cursor-pointer transition bg-[#FFF7F7]">
+              <Upload className="w-5 h-5 mx-auto mb-1.5 text-[#666666]" />
+              <span className="text-xs text-[#171717] block font-semibold">Upload photo of found item</span>
+              <span className="text-[11px] text-[#666666]">Helps the owner recognize it</span>
               <input type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
             </label>
             {imageUrl && (
-              <div className="relative w-24 h-24 rounded-2xl overflow-hidden border border-emerald-500/40 shrink-0">
+              <div className="relative w-20 h-20 rounded-2xl overflow-hidden border border-[#EAEAEA] shrink-0">
                 <img src={imageUrl} alt="Preview" className="w-full h-full object-cover" />
               </div>
             )}
@@ -174,10 +178,10 @@ export const ReportFoundWizard: React.FC<ReportFoundWizardProps> = ({
           <button
             type="submit"
             disabled={isSubmitting}
-            className="px-8 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition shadow-lg shadow-emerald-600/30 disabled:opacity-50"
+            className="px-8 py-3.5 rounded-xl bg-[#E53935] hover:bg-[#C62828] text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition shadow-md shadow-[#E53935]/20 disabled:opacity-50"
           >
-            <Package className="w-4 h-4" />
-            <span>{isSubmitting ? 'Registering...' : 'Register Item & Generate Fingerprint'}</span>
+            <HeartHandshake className="w-4 h-4" />
+            <span>{isSubmitting ? 'Submitting...' : 'Log Found Item'}</span>
           </button>
         </div>
       </form>

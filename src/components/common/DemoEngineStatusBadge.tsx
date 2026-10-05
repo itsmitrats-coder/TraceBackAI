@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Cpu, Sparkles } from 'lucide-react';
+import { Sparkles, CheckCircle2 } from 'lucide-react';
 import { api } from '../../services/api';
 
 export const DemoEngineStatusBadge: React.FC<{ className?: string }> = ({ className = '' }) => {
@@ -19,25 +19,25 @@ export const DemoEngineStatusBadge: React.FC<{ className?: string }> = ({ classN
 
   return (
     <div
-      className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono border backdrop-blur-md transition-all ${
+      className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border transition-all ${
         isLive
-          ? 'bg-emerald-950/40 border-emerald-500/40 text-emerald-300'
-          : 'bg-blue-950/40 border-blue-500/30 text-blue-300'
+          ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+          : 'bg-[#FFF7F7] border-[#EAEAEA] text-[#666666]'
       } ${className}`}
     >
       <span className="relative flex h-2 w-2">
         <span
           className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
-            isLive ? 'bg-emerald-400' : 'bg-blue-400'
+            isLive ? 'bg-emerald-400' : 'bg-[#E53935]'
           }`}
         />
         <span
           className={`relative inline-flex rounded-full h-2 w-2 ${
-            isLive ? 'bg-emerald-500' : 'bg-blue-500'
+            isLive ? 'bg-emerald-500' : 'bg-[#E53935]'
           }`}
         />
       </span>
-      <span className="font-semibold">{status}</span>
+      <span className="font-medium text-[11px] text-[#171717]">{status}</span>
     </div>
   );
 };

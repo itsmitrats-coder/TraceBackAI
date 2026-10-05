@@ -4,8 +4,8 @@ import { LostItem, ItemFingerprint } from '../types';
 import { FingerprintCard } from '../components/common/FingerprintCard';
 import { PrivateClueBadge } from '../components/common/PrivateClueBadge';
 import {
-  Search, ArrowRight, ArrowLeft, Upload, Check, Lock, Shield,
-  Sparkles, MapPin, Clock, Tag, Cpu, CheckCircle2, AlertCircle, FileText
+  Search, ArrowRight, ArrowLeft, Upload, Check, Lock, ShieldCheck,
+  Sparkles, MapPin, Clock, Tag, CheckCircle2, Compass, AlertCircle
 } from 'lucide-react';
 
 interface ReportLostWizardProps {
@@ -25,7 +25,8 @@ export const ReportLostWizard: React.FC<ReportLostWizardProps> = ({
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [location, setLocation] = useState('Central Library');
-  const [lostAt, setLostAt] = useState('Yesterday, 3:30 PM');
+  const [specificSpot, setSpecificSpot] = useState('2nd floor study tables');
+  const [lostAt, setLostAt] = useState('Yesterday afternoon');
   const [privateClue, setPrivateClue] = useState('');
 
   // Processing state for Step 6
@@ -51,28 +52,26 @@ export const ReportLostWizard: React.FC<ReportLostWizardProps> = ({
   ];
 
   const processingPhases = [
-    'Understanding natural language description...',
-    'Forensic multimodal feature vector analysis...',
-    'Synthesizing AI Item Fingerprint...',
-    'Scanning campus found items registry...',
-    'Evaluating 5-factor evidence matrix (V, S, F, L, T)...',
-    'Ranking candidates and identifying ambiguity markers...'
+    'Looking across campus...',
+    'Checking library & student center lost bins...',
+    'Comparing descriptions & colors...',
+    'Checking for matching stickers or logos...',
+    'Ranking possible matches... 👀'
   ];
 
   const handleStartTracing = async () => {
     setCurrentStep(6);
 
     try {
-      // Simulate/Trigger progressive scanning animation
       for (let i = 0; i < processingPhases.length; i++) {
         setProcessingStep(i);
-        await new Promise((r) => setTimeout(r, 650));
+        await new Promise((r) => setTimeout(r, 600));
       }
 
       const res = await api.createLostItem({
         title,
         category,
-        description,
+        description: specificSpot ? `${description} (Specific spot: ${specificSpot})` : description,
         location,
         lost_at: lostAt,
         image_url: imageUrl || 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=600&q=80',
@@ -82,7 +81,7 @@ export const ReportLostWizard: React.FC<ReportLostWizardProps> = ({
       setCreatedItemId(res.item.id);
       setGeneratedFingerprint(res.fingerprint);
 
-      await new Promise((r) => setTimeout(r, 800));
+      await new Promise((r) => setTimeout(r, 700));
       onCompleted(res.item.id);
     } catch (e) {
       console.error('Error submitting lost report', e);
@@ -91,14 +90,12 @@ export const ReportLostWizard: React.FC<ReportLostWizardProps> = ({
     }
   };
 
-  // Image upload handling
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       try {
         const res = await api.uploadFile(e.target.files[0]);
         setImageUrl(`http://127.0.0.1:8000${res.url}`);
       } catch (err) {
-        // Fallback to local object URL
         setImageUrl(URL.createObjectURL(e.target.files[0]));
       }
     }
@@ -108,85 +105,86 @@ export const ReportLostWizard: React.FC<ReportLostWizardProps> = ({
     { num: 1, label: 'WHAT' },
     { num: 2, label: 'WHERE' },
     { num: 3, label: 'WHEN' },
-    { num: 4, label: 'IDENTIFY' },
+    { num: 4, label: 'CLUE' },
     { num: 5, label: 'REVIEW' },
-    { num: 6, label: 'TRACE' },
   ];
 
   return (
-    <div className="max-w-3xl mx-auto py-6 animate-fade-in">
-      {/* Stepper Progress Header */}
+    <div className="max-w-2xl mx-auto py-4 animate-fade-in">
+      {/* Header & Steps */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-widest text-blue-400 font-bold block mb-0.5">
-              FORENSIC INVESTIGATION WIZARD
+            <span className="text-xs font-bold uppercase tracking-wider text-[#E53935] block mb-0.5">
+              REPORT A LOST ITEM
             </span>
-            <h2 className="text-2xl font-black text-white">Report Lost Belonging</h2>
+            <h2 className="text-2xl font-black text-[#171717]">Tell us what happened</h2>
           </div>
           <button
             onClick={onCancel}
-            className="text-xs text-slate-400 hover:text-white transition px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800"
+            className="text-xs text-[#666666] hover:text-[#171717] px-3.5 py-1.5 rounded-xl border border-[#EAEAEA] bg-white transition hover:bg-[#F9F9F9]"
           >
             Cancel
           </button>
         </div>
 
-        {/* 6-Step Stepper Bar */}
-        <div className="grid grid-cols-6 gap-2">
-          {stepsList.map((st) => (
-            <div key={st.num} className="text-center">
-              <div
-                className={`h-1.5 rounded-full mb-1.5 transition-all duration-300 ${
-                  currentStep >= st.num
-                    ? 'bg-gradient-to-r from-blue-500 to-cyan-400'
-                    : 'bg-slate-800'
-                }`}
-              />
-              <span
-                className={`text-[10px] font-mono font-bold tracking-wider ${
-                  currentStep === st.num
-                    ? 'text-cyan-400'
-                    : currentStep > st.num
-                    ? 'text-blue-300'
-                    : 'text-slate-600'
-                }`}
-              >
-                0{st.num} {st.label}
-              </span>
-            </div>
-          ))}
-        </div>
+        {/* 5-Step Stepper Bar */}
+        {currentStep <= 5 && (
+          <div className="grid grid-cols-5 gap-2">
+            {stepsList.map((st) => (
+              <div key={st.num} className="text-center">
+                <div
+                  className={`h-1.5 rounded-full mb-1.5 transition-all duration-300 ${
+                    currentStep >= st.num
+                      ? 'bg-[#E53935]'
+                      : 'bg-[#EAEAEA]'
+                  }`}
+                />
+                <span
+                  className={`text-[10px] font-bold tracking-wider ${
+                    currentStep === st.num
+                      ? 'text-[#E53935]'
+                      : currentStep > st.num
+                      ? 'text-[#171717]'
+                      : 'text-[#666666]'
+                  }`}
+                >
+                  0{st.num} {st.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Main Wizard Form Card */}
-      <div className="rounded-3xl bg-slate-900/90 border border-slate-800 p-8 shadow-2xl relative overflow-hidden">
+      <div className="rounded-3xl bg-white border border-[#EAEAEA] p-6 sm:p-8 shadow-xs">
         {/* STEP 1: WHAT */}
         {currentStep === 1 && (
           <div className="space-y-6 animate-fade-in">
             <div>
-              <h3 className="text-xl font-bold text-white mb-1">What did you lose?</h3>
-              <p className="text-xs text-slate-400">
-                Give an approximate title and choose the closest category.
+              <h3 className="text-xl font-bold text-[#171717] mb-1">What did you lose?</h3>
+              <p className="text-xs text-[#666666]">
+                Give an approximate title and pick the category.
               </p>
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase text-slate-400 mb-2">
-                Item Title / Name *
+              <label className="block text-xs font-bold text-[#171717] mb-2">
+                Item Title *
               </label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="e.g. Hydro Flask Dark Green Water Bottle or Space Gray MacBook Pro"
-                className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm focus:outline-none focus:border-blue-500"
+                placeholder="e.g. Hydro Flask Dark Green Bottle or Space Gray MacBook"
+                className="w-full px-4 py-3 rounded-xl border border-[#EAEAEA] text-[#171717] text-sm focus:outline-none focus:border-[#E53935] focus:ring-2 focus:ring-[#FFF0F0] transition"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase text-slate-400 mb-2">
-                Category Selection *
+              <label className="block text-xs font-bold text-[#171717] mb-2">
+                Category *
               </label>
               <div className="grid grid-cols-3 gap-2">
                 {categories.map((cat) => (
@@ -194,10 +192,10 @@ export const ReportLostWizard: React.FC<ReportLostWizardProps> = ({
                     key={cat}
                     type="button"
                     onClick={() => setCategory(cat)}
-                    className={`py-2.5 px-3 rounded-xl text-xs font-medium text-center border transition ${
+                    className={`py-2 px-3 rounded-xl text-xs font-medium text-center border transition ${
                       category === cat
-                        ? 'bg-blue-600/30 text-blue-300 border-blue-500 font-bold'
-                        : 'bg-slate-950/60 text-slate-400 border-slate-800 hover:text-white'
+                        ? 'bg-[#FFF0F0] text-[#E53935] border-[#E53935] font-bold'
+                        : 'bg-white text-[#666666] border-[#EAEAEA] hover:border-[#171717]'
                     }`}
                   >
                     {cat}
@@ -207,32 +205,32 @@ export const ReportLostWizard: React.FC<ReportLostWizardProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase text-slate-400 mb-2">
+              <label className="block text-xs font-bold text-[#171717] mb-2">
                 Description & Memories *
               </label>
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={3}
-                placeholder="Describe color, size, material, stickers, scratches, or any detail you recall..."
-                className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm focus:outline-none focus:border-blue-500 resize-none"
+                placeholder="Tell us anything you remember — color, stickers, scratches, marks, stickers, dents..."
+                className="w-full px-4 py-3 rounded-xl border border-[#EAEAEA] text-[#171717] text-sm focus:outline-none focus:border-[#E53935] focus:ring-2 focus:ring-[#FFF0F0] resize-none transition"
               />
             </div>
 
-            {/* Image upload / URL */}
+            {/* Photo upload */}
             <div>
-              <label className="block text-xs font-mono uppercase text-slate-400 mb-2">
-                Reference Photo (Optional but Recommended)
+              <label className="block text-xs font-bold text-[#171717] mb-2">
+                Photo (Optional)
               </label>
               <div className="flex items-center gap-4">
-                <label className="flex-1 border-2 border-dashed border-slate-700 hover:border-blue-500 rounded-2xl p-4 text-center cursor-pointer transition bg-slate-950/40">
-                  <Upload className="w-6 h-6 mx-auto mb-2 text-slate-400" />
-                  <span className="text-xs text-slate-300 block font-medium">Click or Drag Image Here</span>
-                  <span className="text-[10px] text-slate-500">JPG, PNG, WEBP</span>
+                <label className="flex-1 border-2 border-dashed border-[#EAEAEA] hover:border-[#E53935] rounded-2xl p-4 text-center cursor-pointer transition bg-[#FFF7F7]">
+                  <Upload className="w-5 h-5 mx-auto mb-1.5 text-[#666666]" />
+                  <span className="text-xs text-[#171717] block font-semibold">Upload a photo if you have one</span>
+                  <span className="text-[11px] text-[#666666]">JPG, PNG</span>
                   <input type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
                 </label>
                 {imageUrl && (
-                  <div className="relative w-24 h-24 rounded-2xl overflow-hidden border border-blue-500/40 shrink-0">
+                  <div className="relative w-20 h-20 rounded-2xl overflow-hidden border border-[#EAEAEA] shrink-0">
                     <img src={imageUrl} alt="Preview" className="w-full h-full object-cover" />
                   </div>
                 )}
@@ -243,9 +241,9 @@ export const ReportLostWizard: React.FC<ReportLostWizardProps> = ({
               <button
                 disabled={!title.trim() || !description.trim()}
                 onClick={() => setCurrentStep(2)}
-                className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 disabled:opacity-50 transition"
+                className="px-6 py-3 rounded-xl bg-[#E53935] hover:bg-[#C62828] text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 disabled:opacity-50 transition shadow-xs"
               >
-                <span>Continue: Location</span>
+                <span>Continue to Location</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
@@ -256,9 +254,9 @@ export const ReportLostWizard: React.FC<ReportLostWizardProps> = ({
         {currentStep === 2 && (
           <div className="space-y-6 animate-fade-in">
             <div>
-              <h3 className="text-xl font-bold text-white mb-1">Where did you last see it?</h3>
-              <p className="text-xs text-slate-400">
-                Select the campus zone or general sector where you suspect it went missing.
+              <h3 className="text-xl font-bold text-[#171717] mb-1">Where did you lose it?</h3>
+              <p className="text-xs text-[#666666]">
+                Pick the campus location where you remember having it last.
               </p>
             </div>
 
@@ -270,28 +268,41 @@ export const ReportLostWizard: React.FC<ReportLostWizardProps> = ({
                   onClick={() => setLocation(loc)}
                   className={`p-3.5 rounded-xl text-left border transition flex items-center gap-2.5 ${
                     location === loc
-                      ? 'bg-blue-600/30 text-blue-200 border-blue-500 font-bold'
-                      : 'bg-slate-950/60 text-slate-300 border-slate-800 hover:border-slate-700'
+                      ? 'bg-[#FFF0F0] text-[#E53935] border-[#E53935] font-bold'
+                      : 'bg-white text-[#171717] border-[#EAEAEA] hover:border-[#171717]'
                   }`}
                 >
-                  <MapPin className={`w-4 h-4 ${location === loc ? 'text-cyan-400' : 'text-slate-500'}`} />
+                  <MapPin className={`w-4 h-4 ${location === loc ? 'text-[#E53935]' : 'text-[#666666]'}`} />
                   <span className="text-xs">{loc}</span>
                 </button>
               ))}
             </div>
 
+            <div>
+              <label className="block text-xs font-bold text-[#171717] mb-2">
+                Specific Spot (Optional)
+              </label>
+              <input
+                type="text"
+                value={specificSpot}
+                onChange={(e) => setSpecificSpot(e.target.value)}
+                placeholder="e.g. 2nd floor silent study table, near the east window"
+                className="w-full px-4 py-3 rounded-xl border border-[#EAEAEA] text-[#171717] text-xs focus:outline-none focus:border-[#E53935] transition"
+              />
+            </div>
+
             <div className="flex justify-between pt-4">
               <button
                 onClick={() => setCurrentStep(1)}
-                className="px-5 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold hover:bg-slate-700 transition"
+                className="px-5 py-2.5 rounded-xl bg-white border border-[#EAEAEA] text-[#666666] hover:text-[#171717] text-xs font-semibold hover:bg-[#F9F9F9] transition"
               >
                 Back
               </button>
               <button
                 onClick={() => setCurrentStep(3)}
-                className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition"
+                className="px-6 py-3 rounded-xl bg-[#E53935] hover:bg-[#C62828] text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition shadow-xs"
               >
-                <span>Continue: Timing</span>
+                <span>Continue to When</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
@@ -302,17 +313,17 @@ export const ReportLostWizard: React.FC<ReportLostWizardProps> = ({
         {currentStep === 3 && (
           <div className="space-y-6 animate-fade-in">
             <div>
-              <h3 className="text-xl font-bold text-white mb-1">When did you lose it?</h3>
-              <p className="text-xs text-slate-400">
-                Approximate date, time of day, or time range.
+              <h3 className="text-xl font-bold text-[#171717] mb-1">When was it?</h3>
+              <p className="text-xs text-[#666666]">
+                Approximate day and time range.
               </p>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {[
                 'Today, within the last 2 hours',
-                'Today, around lunchtime (12:00 - 2:00 PM)',
-                'Yesterday, afternoon (3:00 - 5:00 PM)',
+                'Today around lunch (12:00 - 2:00 PM)',
+                'Yesterday afternoon',
                 'Two days ago',
                 'Earlier this week'
               ].map((timePreset) => (
@@ -322,136 +333,135 @@ export const ReportLostWizard: React.FC<ReportLostWizardProps> = ({
                   onClick={() => setLostAt(timePreset)}
                   className={`w-full p-3.5 rounded-xl text-left border transition flex items-center justify-between ${
                     lostAt === timePreset
-                      ? 'bg-blue-600/30 text-blue-200 border-blue-500 font-bold'
-                      : 'bg-slate-950/60 text-slate-300 border-slate-800 hover:border-slate-700'
+                      ? 'bg-[#FFF0F0] text-[#E53935] border-[#E53935] font-bold'
+                      : 'bg-white text-[#171717] border-[#EAEAEA] hover:border-[#171717]'
                   }`}
                 >
                   <div className="flex items-center gap-2.5 text-xs">
-                    <Clock className="w-4 h-4 text-blue-400" />
+                    <Clock className="w-4 h-4 text-[#E53935]" />
                     <span>{timePreset}</span>
                   </div>
-                  {lostAt === timePreset && <Check className="w-4 h-4 text-blue-400" />}
+                  {lostAt === timePreset && <Check className="w-4 h-4 text-[#E53935]" />}
                 </button>
               ))}
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase text-slate-400 mb-1.5">
-                Or Specify Custom Date / Window
+              <label className="block text-xs font-bold text-[#171717] mb-1.5">
+                Or specific custom date & time:
               </label>
               <input
                 type="text"
                 value={lostAt}
                 onChange={(e) => setLostAt(e.target.value)}
-                placeholder="e.g. Wednesday Oct 2, around 4:15 PM"
-                className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-blue-500"
+                placeholder="e.g. Monday Oct 3, around 4:15 PM"
+                className="w-full px-4 py-3 rounded-xl border border-[#EAEAEA] text-[#171717] text-xs focus:outline-none focus:border-[#E53935] transition"
               />
             </div>
 
             <div className="flex justify-between pt-4">
               <button
                 onClick={() => setCurrentStep(2)}
-                className="px-5 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold hover:bg-slate-700 transition"
+                className="px-5 py-2.5 rounded-xl bg-white border border-[#EAEAEA] text-[#666666] hover:text-[#171717] text-xs font-semibold hover:bg-[#F9F9F9] transition"
               >
                 Back
               </button>
               <button
                 onClick={() => setCurrentStep(4)}
-                className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition"
+                className="px-6 py-3 rounded-xl bg-[#E53935] hover:bg-[#C62828] text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition shadow-xs"
               >
-                <span>Continue: Private Clue</span>
+                <span>Continue to Private Clue</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>
         )}
 
-        {/* STEP 4: PRIVATE CLUE (VERY IMPORTANT - SECTION 11) */}
+        {/* STEP 4: PRIVATE CLUE */}
         {currentStep === 4 && (
           <div className="space-y-6 animate-fade-in">
-            <div className="p-4 rounded-2xl bg-indigo-950/40 border border-indigo-500/30 flex items-start gap-3">
-              <div className="p-2 rounded-xl bg-indigo-500/20 text-indigo-400 shrink-0">
+            <div className="p-4 rounded-2xl bg-[#FFF0F0] border border-[#E53935]/20 flex items-start gap-3">
+              <div className="p-2 rounded-xl bg-white text-[#E53935] shrink-0 shadow-2xs">
                 <Lock className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-white mb-1">
-                  Private Ownership Clue (Shielded)
+                <h4 className="text-sm font-bold text-[#171717] mb-1">
+                  Add a secret detail only you know
                 </h4>
-                <p className="text-xs text-indigo-200 leading-relaxed">
-                  This clue is <strong>never displayed publicly</strong> on found listings or candidate cards.
-                  It is securely stored so TraceBack can assist staff in proving that a claimed item actually belongs to you!
+                <p className="text-xs text-[#666666] leading-relaxed">
+                  This helps prove it's yours later and will <strong>never be shown publicly</strong>. Only verified staff compare this when you claim your item.
                 </p>
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase text-slate-400 mb-2">
-                Something only the true owner would know:
+              <label className="block text-xs font-bold text-[#171717] mb-2">
+                Secret ownership clue:
               </label>
               <textarea
                 value={privateClue}
                 onChange={(e) => setPrivateClue(e.target.value)}
                 rows={3}
-                placeholder="e.g. 'Inside flap has my name Alex written in blue pen' or 'Small circular NASA astronaut sticker under the base' or 'Lock screen has photo of golden retriever'..."
-                className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-indigo-900/60 text-white text-sm focus:outline-none focus:border-indigo-500 resize-none"
+                placeholder="Examples: 'Small sticker under the bottle base' or 'My student ID number written on inside tag' or 'Scratch near power button'..."
+                className="w-full px-4 py-3 rounded-xl border border-[#EAEAEA] text-[#171717] text-sm focus:outline-none focus:border-[#E53935] resize-none transition"
               />
             </div>
 
-            <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-400 space-y-1">
-              <span className="font-semibold text-slate-300 block mb-1">TraceBack Security Guarantee:</span>
-              <p>✓ Never shown in public listings</p>
-              <p>✓ Never exposed in match explanations</p>
-              <p>✓ Used strictly during AI claim verification</p>
+            <div className="p-3.5 rounded-xl bg-[#FFF7F7] border border-[#EAEAEA] text-xs text-[#666666] space-y-1">
+              <span className="font-bold text-[#171717] block mb-1">Privacy guarantee:</span>
+              <p>✓ Never shown on public campus feeds</p>
+              <p>✓ Never visible to strangers or other claimants</p>
+              <p>✓ Only used to verify ownership before physical handover</p>
             </div>
 
             <div className="flex justify-between pt-4">
               <button
                 onClick={() => setCurrentStep(3)}
-                className="px-5 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold hover:bg-slate-700 transition"
+                className="px-5 py-2.5 rounded-xl bg-white border border-[#EAEAEA] text-[#666666] hover:text-[#171717] text-xs font-semibold hover:bg-[#F9F9F9] transition"
               >
                 Back
               </button>
               <button
                 onClick={() => setCurrentStep(5)}
-                className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition"
+                className="px-6 py-3 rounded-xl bg-[#E53935] hover:bg-[#C62828] text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition shadow-xs"
               >
-                <span>Continue: Review Dossier</span>
+                <span>Review & Trace</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>
         )}
 
-        {/* STEP 5: REVIEW */}
+        {/* STEP 5: REVIEW & TRACE */}
         {currentStep === 5 && (
           <div className="space-y-6 animate-fade-in">
             <div>
-              <h3 className="text-xl font-bold text-white mb-1">Review Report Dossier</h3>
-              <p className="text-xs text-slate-400">
-                Confirm your parameters before initializing TraceBack forensic investigation.
+              <h3 className="text-xl font-bold text-[#171717] mb-1">Ready to trace?</h3>
+              <p className="text-xs text-[#666666]">
+                Review your report before TraceBack searches for matches.
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 text-xs">
-              <div className="flex justify-between py-1 border-b border-slate-800">
-                <span className="text-slate-400 font-mono">OBJECT / TITLE:</span>
-                <span className="text-white font-bold">{title}</span>
+            <div className="p-5 rounded-2xl bg-[#FFF7F7] border border-[#EAEAEA] space-y-3 text-xs">
+              <div className="flex justify-between py-1 border-b border-[#EAEAEA]">
+                <span className="text-[#666666] font-medium">ITEM:</span>
+                <span className="text-[#171717] font-bold">{title}</span>
               </div>
-              <div className="flex justify-between py-1 border-b border-slate-800">
-                <span className="text-slate-400 font-mono">CATEGORY:</span>
-                <span className="text-slate-200">{category}</span>
+              <div className="flex justify-between py-1 border-b border-[#EAEAEA]">
+                <span className="text-[#666666] font-medium">CATEGORY:</span>
+                <span className="text-[#171717] font-semibold">{category}</span>
               </div>
-              <div className="flex justify-between py-1 border-b border-slate-800">
-                <span className="text-slate-400 font-mono">LAST SEEN SECTOR:</span>
-                <span className="text-slate-200">{location}</span>
+              <div className="flex justify-between py-1 border-b border-[#EAEAEA]">
+                <span className="text-[#666666] font-medium">CAMPUS LOCATION:</span>
+                <span className="text-[#171717] font-semibold">{location}</span>
               </div>
-              <div className="flex justify-between py-1 border-b border-slate-800">
-                <span className="text-slate-400 font-mono">APPROXIMATE TIME:</span>
-                <span className="text-slate-200">{lostAt}</span>
+              <div className="flex justify-between py-1 border-b border-[#EAEAEA]">
+                <span className="text-[#666666] font-medium">TIME:</span>
+                <span className="text-[#171717] font-semibold">{lostAt}</span>
               </div>
               <div className="py-1">
-                <span className="text-slate-400 font-mono block mb-1">DESCRIPTION:</span>
-                <p className="text-slate-300 italic">"{description}"</p>
+                <span className="text-[#666666] font-medium block mb-1">DESCRIPTION:</span>
+                <p className="text-[#171717] italic">"{description}"</p>
               </div>
             </div>
 
@@ -462,43 +472,42 @@ export const ReportLostWizard: React.FC<ReportLostWizardProps> = ({
             <div className="flex justify-between pt-4">
               <button
                 onClick={() => setCurrentStep(4)}
-                className="px-5 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold hover:bg-slate-700 transition"
+                className="px-5 py-2.5 rounded-xl bg-white border border-[#EAEAEA] text-[#666666] hover:text-[#171717] text-xs font-semibold hover:bg-[#F9F9F9] transition"
               >
                 Back
               </button>
               <button
                 onClick={handleStartTracing}
-                className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 hover:from-blue-500 hover:to-cyan-400 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center gap-2 transition shadow-xl shadow-cyan-500/20 transform hover:-translate-y-0.5"
+                className="px-8 py-3.5 rounded-xl bg-[#E53935] hover:bg-[#C62828] text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition shadow-md shadow-[#E53935]/20"
               >
-                <Sparkles className="w-4 h-4" />
-                <span>Initialize TraceBack Investigation</span>
+                <Compass className="w-4 h-4" />
+                <span>Trace It Back</span>
               </button>
             </div>
           </div>
         )}
 
-        {/* STEP 6: TRACE (ENGAGING AI PROCESSING SCANNER - SECTION 11) */}
+        {/* STEP 6: TRACING ANIMATION */}
         {currentStep === 6 && (
           <div className="py-10 text-center space-y-6 animate-fade-in">
-            <div className="relative w-20 h-20 mx-auto">
-              <div className="absolute inset-0 rounded-full border-4 border-cyan-400/20 animate-ping" />
-              <div className="w-20 h-20 rounded-full border-4 border-cyan-400 border-t-transparent animate-spin" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Cpu className="w-8 h-8 text-cyan-400 animate-pulse" />
+            <div className="relative w-16 h-16 mx-auto">
+              <div className="w-16 h-16 rounded-full border-4 border-[#FFF0F0] border-t-[#E53935] animate-spin" />
+              <div className="absolute inset-0 flex items-center justify-center text-[#E53935]">
+                <Compass className="w-6 h-6 animate-pulse" />
               </div>
             </div>
 
             <div>
-              <span className="text-xs font-mono font-bold uppercase tracking-widest text-cyan-400 block mb-1">
-                TRACEBACK INTELLIGENCE ENGINE
+              <span className="text-xs font-bold uppercase tracking-wider text-[#E53935] block mb-1">
+                SEARCHING CAMPUS
               </span>
-              <h3 className="text-xl font-bold text-white">
-                Forensic Analysis in Progress...
+              <h3 className="text-xl font-bold text-[#171717]">
+                Scanning Campus Registry...
               </h3>
             </div>
 
             {/* Step Checkmarks */}
-            <div className="max-w-md mx-auto p-5 rounded-2xl bg-slate-950/80 border border-slate-800 text-left text-xs space-y-2.5">
+            <div className="max-w-md mx-auto p-5 rounded-2xl bg-[#FFF7F7] border border-[#EAEAEA] text-left text-xs space-y-2.5">
               {processingPhases.map((phase, idx) => {
                 const isDone = processingStep > idx;
                 const isCurrent = processingStep === idx;
@@ -508,18 +517,18 @@ export const ReportLostWizard: React.FC<ReportLostWizardProps> = ({
                     key={idx}
                     className={`flex items-center gap-2.5 transition ${
                       isDone
-                        ? 'text-emerald-400 font-medium'
+                        ? 'text-emerald-700 font-semibold'
                         : isCurrent
-                        ? 'text-cyan-300 font-bold animate-pulse'
-                        : 'text-slate-600'
+                        ? 'text-[#E53935] font-bold animate-pulse'
+                        : 'text-[#666666]'
                     }`}
                   >
                     {isDone ? (
-                      <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
+                      <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
                     ) : isCurrent ? (
-                      <div className="w-4 h-4 rounded-full border-2 border-cyan-400 border-t-transparent animate-spin shrink-0" />
+                      <div className="w-4 h-4 rounded-full border-2 border-[#E53935] border-t-transparent animate-spin shrink-0" />
                     ) : (
-                      <div className="w-4 h-4 rounded-full border border-slate-700 shrink-0" />
+                      <div className="w-4 h-4 rounded-full border border-[#EAEAEA] shrink-0" />
                     )}
                     <span>{phase}</span>
                   </div>

@@ -19,7 +19,8 @@ export const NaturalSearchBar: React.FC<NaturalSearchBarProps> = ({
   const sampleQueries = [
     'black bottle found near library yesterday',
     'silver laptop left in academic block',
-    'keys with blue fob dropped in parking area',
+    'keys with lanyard dropped in parking lot',
+    'blue hydroflask near sports complex',
   ];
 
   const handleSearch = async (searchQuery: string = query) => {
@@ -44,9 +45,9 @@ export const NaturalSearchBar: React.FC<NaturalSearchBarProps> = ({
   return (
     <div className={`space-y-3 ${className}`}>
       {/* Search Input Bar */}
-      <div className="relative flex items-center">
-        <div className="absolute left-4 text-blue-400">
-          <Search className="w-5 h-5" />
+      <div className="relative flex items-center shadow-sm rounded-2xl bg-white border border-[#EAEAEA] focus-within:border-[#E53935] focus-within:ring-2 focus-within:ring-[#FFF0F0] transition-all">
+        <div className="absolute left-4 text-[#666666]">
+          <Search className="w-5 h-5 text-[#E53935]" />
         </div>
 
         <input
@@ -54,15 +55,16 @@ export const NaturalSearchBar: React.FC<NaturalSearchBarProps> = ({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-          placeholder="Describe what you lost or found in natural English (e.g. 'black bottle found near library yesterday')..."
-          className="w-full pl-12 pr-28 py-3.5 rounded-2xl bg-slate-900/90 border border-slate-700/80 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 shadow-xl transition"
+          placeholder="Search for anything lost or found... e.g. blue bottle near library yesterday"
+          className="w-full pl-12 pr-32 py-3.5 rounded-2xl bg-transparent text-[#171717] placeholder-[#666666] text-sm focus:outline-none"
         />
 
-        <div className="absolute right-2 flex items-center gap-1.5">
+        <div className="absolute right-2.5 flex items-center gap-1.5">
           {query && (
             <button
               onClick={clearSearch}
-              className="p-1.5 text-slate-400 hover:text-white transition rounded-lg"
+              className="p-1.5 text-[#666666] hover:text-[#171717] hover:bg-[#F9F9F9] transition rounded-lg"
+              title="Clear search"
             >
               <X className="w-4 h-4" />
             </button>
@@ -71,9 +73,9 @@ export const NaturalSearchBar: React.FC<NaturalSearchBarProps> = ({
           <button
             onClick={() => handleSearch()}
             disabled={isLoading || !query.trim()}
-            className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition flex items-center gap-1.5 shadow-md shadow-blue-600/30 disabled:opacity-50"
+            className="px-4 py-2 rounded-xl bg-[#E53935] hover:bg-[#C62828] text-white font-semibold text-xs transition flex items-center gap-1.5 shadow-sm shadow-[#E53935]/20 disabled:opacity-50"
           >
-            <span>Investigate</span>
+            <span>{isLoading ? 'Searching...' : 'Search'}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -81,10 +83,8 @@ export const NaturalSearchBar: React.FC<NaturalSearchBarProps> = ({
 
       {/* Suggested Quick Queries */}
       {!understood && (
-        <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400">
-          <span className="flex items-center gap-1 text-[11px] font-mono text-slate-500">
-            <Sparkles className="w-3 h-3 text-cyan-400" /> Try Clues:
-          </span>
+        <div className="flex flex-wrap items-center gap-2 text-xs text-[#666666]">
+          <span className="text-[11px] font-medium text-[#666666]">Try:</span>
           {sampleQueries.map((sq, i) => (
             <button
               key={i}
@@ -92,7 +92,7 @@ export const NaturalSearchBar: React.FC<NaturalSearchBarProps> = ({
                 setQuery(sq);
                 handleSearch(sq);
               }}
-              className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition text-[11px]"
+              className="px-3 py-1 rounded-full bg-white border border-[#EAEAEA] text-[#171717] hover:border-[#E53935] hover:text-[#E53935] transition text-xs shadow-2xs"
             >
               "{sq}"
             </button>
@@ -100,40 +100,41 @@ export const NaturalSearchBar: React.FC<NaturalSearchBarProps> = ({
         </div>
       )}
 
-      {/* AI Understanding Breakdown Banner */}
+      {/* Understood Breakdown Banner */}
       {understood && (
-        <div className="p-3.5 rounded-2xl bg-blue-950/30 border border-blue-500/30 text-xs animate-fade-in">
+        <div className="p-3.5 rounded-2xl bg-[#FFF7F7] border border-[#EAEAEA] text-xs animate-fade-in">
           <div className="flex items-center justify-between mb-2">
-            <span className="font-mono font-bold uppercase tracking-wider text-blue-400 text-[10px] flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5" /> TRACEBACK UNDERSTOOD YOUR SEARCH AS:
+            <span className="font-semibold text-[#171717] text-xs flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-[#E53935]" />
+              We searched for:
             </span>
             <button
               onClick={clearSearch}
-              className="text-[11px] text-slate-400 hover:text-white transition"
+              className="text-xs text-[#666666] hover:text-[#E53935] underline transition"
             >
-              Clear filter
+              Reset filters
             </button>
           </div>
 
           <div className="flex flex-wrap gap-2">
             {understood.category && (
-              <span className="px-2.5 py-1 rounded-lg bg-blue-500/10 border border-blue-500/30 text-blue-300 flex items-center gap-1.5 font-medium">
-                <Tag className="w-3 h-3" /> Category: {understood.category}
+              <span className="px-2.5 py-1 rounded-lg bg-white border border-[#EAEAEA] text-[#171717] flex items-center gap-1.5 font-medium shadow-2xs">
+                <Tag className="w-3 h-3 text-[#E53935]" /> Category: {understood.category}
               </span>
             )}
             {understood.color && (
-              <span className="px-2.5 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 flex items-center gap-1.5 font-medium">
-                <Palette className="w-3 h-3" /> Color: {understood.color}
+              <span className="px-2.5 py-1 rounded-lg bg-white border border-[#EAEAEA] text-[#171717] flex items-center gap-1.5 font-medium shadow-2xs">
+                <Palette className="w-3 h-3 text-[#E53935]" /> Color: {understood.color}
               </span>
             )}
             {understood.location && (
-              <span className="px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 flex items-center gap-1.5 font-medium">
-                <MapPin className="w-3 h-3" /> Sector: {understood.location}
+              <span className="px-2.5 py-1 rounded-lg bg-white border border-[#EAEAEA] text-[#171717] flex items-center gap-1.5 font-medium shadow-2xs">
+                <MapPin className="w-3 h-3 text-[#E53935]" /> Near: {understood.location}
               </span>
             )}
             {understood.time && (
-              <span className="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center gap-1.5 font-medium">
-                <Clock className="w-3 h-3" /> Time: {understood.time}
+              <span className="px-2.5 py-1 rounded-lg bg-white border border-[#EAEAEA] text-[#171717] flex items-center gap-1.5 font-medium shadow-2xs">
+                <Clock className="w-3 h-3 text-[#E53935]" /> When: {understood.time}
               </span>
             )}
           </div>

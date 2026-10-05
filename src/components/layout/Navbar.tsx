@@ -3,9 +3,8 @@ import { useAuth } from '../../context/AuthContext';
 import { useNotifications } from '../../context/NotificationContext';
 import { DemoEngineStatusBadge } from '../common/DemoEngineStatusBadge';
 import {
-  Search, Shield, Bell, CheckCircle, ChevronDown, User as UserIcon,
-  Compass, MapPin, BarChart3, ShieldCheck, LogOut, Sparkles, Layers,
-  X, Check, Flame
+  MapPin, Search, Bell, ChevronDown, User as UserIcon,
+  LogOut, Check, Sparkles, PlusCircle, Compass
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -33,24 +32,25 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate }) => {
   const visibleNav = navItems.filter((item) => item.roles.includes(role));
 
   return (
-    <nav className="sticky top-0 z-40 w-full border-b border-slate-800 bg-slate-950/85 backdrop-blur-xl">
+    <nav className="sticky top-0 z-40 w-full border-b border-[#EAEAEA] bg-white/95 backdrop-blur-md transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo & Brand */}
-          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => onNavigate('dashboard')}>
-            <div className="relative w-9 h-9 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-400 p-0.5 shadow-lg shadow-blue-500/20">
-              <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
-                <span className="text-cyan-400 font-black text-sm tracking-tighter">TB</span>
-              </div>
+          <div
+            className="flex items-center space-x-3 cursor-pointer group"
+            onClick={() => onNavigate('dashboard')}
+          >
+            <div className="w-9 h-9 rounded-xl bg-[#E53935] flex items-center justify-center text-white shadow-sm shadow-[#E53935]/20 group-hover:scale-105 transition-transform">
+              <Compass className="w-5 h-5 stroke-[2.2]" />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="text-base font-black tracking-tight text-white font-mono">
-                  TRACEBACK<span className="text-blue-500">.AI</span>
+                <span className="text-lg font-extrabold tracking-tight text-[#171717]">
+                  Trace<span className="text-[#E53935]">Back</span>
                 </span>
               </div>
-              <span className="hidden sm:block text-[9px] uppercase tracking-widest text-slate-400 font-mono -mt-1">
-                Forensic Campus Recovery
+              <span className="hidden sm:block text-[11px] font-medium text-[#666666] -mt-1">
+                Lost it? Trace it back.
               </span>
             </div>
           </div>
@@ -65,8 +65,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate }) => {
                   onClick={() => onNavigate(item.id)}
                   className={`px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
                     isActive
-                      ? 'bg-blue-600/20 text-blue-400 border border-blue-500/30 shadow-sm shadow-blue-500/10'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-900'
+                      ? 'bg-[#FFF0F0] text-[#E53935] font-bold'
+                      : 'text-[#666666] hover:text-[#171717] hover:bg-[#F9F9F9]'
                   }`}
                 >
                   {item.label}
@@ -86,11 +86,12 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate }) => {
             <div className="relative">
               <button
                 onClick={() => setShowNotifs(!showNotifs)}
-                className="relative p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition"
+                className="relative p-2 rounded-xl border border-[#EAEAEA] bg-white text-[#666666] hover:text-[#171717] hover:bg-[#F9F9F9] transition"
+                aria-label="Notifications"
               >
                 <Bell className="w-4 h-4" />
                 {unreadCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-blue-500 text-white font-mono text-[9px] font-bold flex items-center justify-center animate-pulse">
+                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#E53935] text-white text-[9px] font-bold flex items-center justify-center shadow-xs">
                     {unreadCount}
                   </span>
                 )}
@@ -98,25 +99,25 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate }) => {
 
               {/* Notification Dropdown */}
               {showNotifs && (
-                <div className="absolute right-0 mt-2 w-80 sm:w-96 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl p-4 z-50 animate-fade-in">
-                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                    <span className="font-mono font-bold text-xs uppercase tracking-wider text-slate-200">
-                      FORENSIC NOTIFICATIONS ({unreadCount})
+                <div className="absolute right-0 mt-2 w-80 sm:w-96 rounded-2xl bg-white border border-[#EAEAEA] shadow-xl p-4 z-50 animate-fade-in">
+                  <div className="flex items-center justify-between pb-3 border-b border-[#EAEAEA]">
+                    <span className="font-bold text-xs uppercase tracking-wider text-[#171717]">
+                      Notifications ({unreadCount})
                     </span>
                     {unreadCount > 0 && (
                       <button
-                        onClick={markAllAll => markAllAsRead()}
-                        className="text-[11px] text-blue-400 hover:underline"
+                        onClick={() => markAllAsRead()}
+                        className="text-[11px] text-[#E53935] font-semibold hover:underline"
                       >
                         Mark all read
                       </button>
                     )}
                   </div>
 
-                  <div className="max-h-72 overflow-y-auto divide-y divide-slate-800/60 my-2">
+                  <div className="max-h-72 overflow-y-auto divide-y divide-[#EAEAEA] my-2">
                     {notifications.length === 0 ? (
-                      <div className="py-8 text-center text-slate-500 text-xs">
-                        No active notifications logged.
+                      <div className="py-8 text-center text-[#666666] text-xs">
+                        No active notifications.
                       </div>
                     ) : (
                       notifications.map((n) => (
@@ -133,19 +134,19 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate }) => {
                             }
                           }}
                           className={`p-3 rounded-xl cursor-pointer transition ${
-                            n.is_read ? 'opacity-70 hover:bg-slate-800/40' : 'bg-blue-950/20 hover:bg-blue-950/40'
+                            n.is_read ? 'opacity-70 hover:bg-[#F9F9F9]' : 'bg-[#FFF7F7] hover:bg-[#FFF0F0]'
                           }`}
                         >
                           <div className="flex items-start justify-between">
-                            <span className="font-semibold text-xs text-white block mb-0.5">
+                            <span className="font-semibold text-xs text-[#171717] block mb-0.5">
                               {n.title}
                             </span>
                             {!n.is_read && (
-                              <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0 mt-1" />
+                              <span className="w-2 h-2 rounded-full bg-[#E53935] shrink-0 mt-1" />
                             )}
                           </div>
-                          <p className="text-xs text-slate-300 leading-snug">{n.message}</p>
-                          <span className="text-[10px] text-slate-500 mt-1 block font-mono">
+                          <p className="text-xs text-[#666666] leading-snug">{n.message}</p>
+                          <span className="text-[10px] text-[#666666] mt-1 block">
                             {new Date(n.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                           </span>
                         </div>
@@ -160,39 +161,39 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate }) => {
             <div className="relative">
               <button
                 onClick={() => setShowUserMenu(!showUserMenu)}
-                className="flex items-center space-x-2 pl-2 pr-3 py-1.5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 transition"
+                className="flex items-center space-x-2 pl-2 pr-3 py-1.5 rounded-2xl border border-[#EAEAEA] bg-white hover:border-[#171717]/20 transition"
               >
                 <img
                   src={user?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'}
                   alt={user?.name || 'User'}
-                  className="w-6 h-6 rounded-full object-cover border border-blue-500/40"
+                  className="w-6 h-6 rounded-full object-cover border border-[#EAEAEA]"
                 />
                 <div className="hidden sm:block text-left text-xs leading-none">
-                  <span className="font-semibold text-white block mb-0.5 truncate max-w-[90px]">
+                  <span className="font-semibold text-[#171717] block mb-0.5 truncate max-w-[90px]">
                     {user?.name?.split(' ')[0]}
                   </span>
-                  <span className="text-[9px] uppercase font-mono text-blue-400 font-bold">
+                  <span className="text-[10px] font-bold text-[#E53935] uppercase">
                     {role}
                   </span>
                 </div>
-                <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                <ChevronDown className="w-3.5 h-3.5 text-[#666666]" />
               </button>
 
               {/* Persona Switcher Dropdown */}
               {showUserMenu && (
-                <div className="absolute right-0 mt-2 w-64 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl p-3 z-50 animate-fade-in">
-                  <div className="px-3 py-2 border-b border-slate-800">
-                    <span className="text-xs font-bold text-white block">{user?.name}</span>
-                    <span className="text-[11px] text-slate-400 block truncate">{user?.email}</span>
-                    <span className="inline-block mt-1 text-[9px] uppercase font-mono px-2 py-0.5 rounded bg-blue-900/60 text-blue-300 border border-blue-800">
+                <div className="absolute right-0 mt-2 w-64 rounded-2xl bg-white border border-[#EAEAEA] shadow-xl p-3 z-50 animate-fade-in">
+                  <div className="px-3 py-2 border-b border-[#EAEAEA]">
+                    <span className="text-xs font-bold text-[#171717] block">{user?.name}</span>
+                    <span className="text-[11px] text-[#666666] block truncate">{user?.email}</span>
+                    <span className="inline-block mt-1 text-[10px] font-semibold px-2 py-0.5 rounded bg-[#FFF0F0] text-[#E53935] border border-[#E53935]/20">
                       Role: {role}
                     </span>
                   </div>
 
                   {/* 1-Click Role Switcher for Hackathon Demonstrations */}
                   <div className="py-2 space-y-1">
-                    <span className="text-[10px] uppercase font-mono text-slate-400 px-3 block mb-1">
-                      QUICK DEMO PERSONA:
+                    <span className="text-[10px] uppercase font-bold text-[#666666] px-3 block mb-1">
+                      Switch Demo Role:
                     </span>
                     <button
                       onClick={() => {
@@ -200,14 +201,14 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate }) => {
                         setShowUserMenu(false);
                       }}
                       className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition ${
-                        role === 'student' ? 'bg-blue-600/30 text-blue-300 font-bold' : 'text-slate-300 hover:bg-slate-800'
+                        role === 'student' ? 'bg-[#FFF0F0] text-[#E53935] font-bold' : 'text-[#171717] hover:bg-[#F9F9F9]'
                       }`}
                     >
                       <div>
-                        <span className="block">Student: Alex Rivera</span>
-                        <span className="text-[10px] text-slate-400">Reports items & claims</span>
+                        <span className="block font-medium">Student: Alex Rivera</span>
+                        <span className="text-[10px] text-[#666666]">Reports items & claims</span>
                       </div>
-                      {role === 'student' && <Check className="w-3.5 h-3.5 text-blue-400" />}
+                      {role === 'student' && <Check className="w-3.5 h-3.5 text-[#E53935]" />}
                     </button>
 
                     <button
@@ -217,14 +218,14 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate }) => {
                         onNavigate('staff-ops');
                       }}
                       className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition ${
-                        role === 'staff' ? 'bg-blue-600/30 text-blue-300 font-bold' : 'text-slate-300 hover:bg-slate-800'
+                        role === 'staff' ? 'bg-[#FFF0F0] text-[#E53935] font-bold' : 'text-[#171717] hover:bg-[#F9F9F9]'
                       }`}
                     >
                       <div>
-                        <span className="block">Staff: Marcus Vance</span>
-                        <span className="text-[10px] text-slate-400">Reviews & handovers</span>
+                        <span className="block font-medium">Staff: Marcus Vance</span>
+                        <span className="text-[10px] text-[#666666]">Reviews & handovers</span>
                       </div>
-                      {role === 'staff' && <Check className="w-3.5 h-3.5 text-blue-400" />}
+                      {role === 'staff' && <Check className="w-3.5 h-3.5 text-[#E53935]" />}
                     </button>
 
                     <button
@@ -234,26 +235,26 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate }) => {
                         onNavigate('analytics');
                       }}
                       className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition ${
-                        role === 'admin' ? 'bg-blue-600/30 text-blue-300 font-bold' : 'text-slate-300 hover:bg-slate-800'
+                        role === 'admin' ? 'bg-[#FFF0F0] text-[#E53935] font-bold' : 'text-[#171717] hover:bg-[#F9F9F9]'
                       }`}
                     >
                       <div>
-                        <span className="block">Admin: Dr. Sarah Chen</span>
-                        <span className="text-[10px] text-slate-400">Campus metrics & audit</span>
+                        <span className="block font-medium">Admin: Dr. Sarah Chen</span>
+                        <span className="text-[10px] text-[#666666]">Campus metrics & audit</span>
                       </div>
-                      {role === 'admin' && <Check className="w-3.5 h-3.5 text-blue-400" />}
+                      {role === 'admin' && <Check className="w-3.5 h-3.5 text-[#E53935]" />}
                     </button>
                   </div>
 
-                  <div className="pt-2 border-t border-slate-800">
+                  <div className="pt-2 border-t border-[#EAEAEA]">
                     <button
                       onClick={() => {
                         onNavigate('profile');
                         setShowUserMenu(false);
                       }}
-                      className="w-full text-left px-3 py-1.5 rounded-lg text-xs text-slate-300 hover:bg-slate-800 flex items-center gap-2"
+                      className="w-full text-left px-3 py-1.5 rounded-lg text-xs text-[#171717] hover:bg-[#F9F9F9] flex items-center gap-2"
                     >
-                      <UserIcon className="w-3.5 h-3.5" />
+                      <UserIcon className="w-3.5 h-3.5 text-[#666666]" />
                       <span>User Profile</span>
                     </button>
                     <button
@@ -261,7 +262,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate }) => {
                         logout();
                         setShowUserMenu(false);
                       }}
-                      className="w-full text-left px-3 py-1.5 rounded-lg text-xs text-red-400 hover:bg-red-950/40 flex items-center gap-2 mt-1"
+                      className="w-full text-left px-3 py-1.5 rounded-lg text-xs text-[#E53935] hover:bg-[#FFF0F0] flex items-center gap-2 mt-1 font-semibold"
                     >
                       <LogOut className="w-3.5 h-3.5" />
                       <span>Sign Out</span>

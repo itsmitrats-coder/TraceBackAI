@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, Clock, ShieldAlert, Sparkles, AlertCircle } from 'lucide-react';
+import { Check, Clock } from 'lucide-react';
 
 interface RecoveryTimelineProps {
   status: 'open' | 'potential_match' | 'claim_pending' | 'verified' | 'recovered' | 'closed';
@@ -17,116 +17,113 @@ export const RecoveryTimeline: React.FC<RecoveryTimelineProps> = ({
   const steps = [
     {
       id: 'reported',
-      label: 'Report Logged',
-      desc: 'Validated & stored',
+      label: 'Reported',
+      desc: 'Saved in system',
       completed: true,
       current: false,
     },
     {
       id: 'fingerprint',
-      label: 'AI Fingerprint',
-      desc: 'Multimodal vector created',
+      label: 'Details Checked',
+      desc: 'Clues organized',
       completed: true,
       current: false,
     },
     {
       id: 'matched',
-      label: `${candidateCount} Candidates`,
-      desc: 'Evidence scored',
+      label: `${candidateCount} Matches`,
+      desc: 'Compared with found items',
       completed: status !== 'open' || candidateCount > 0,
       current: status === 'potential_match' && !hasDetectiveAnswered,
     },
     {
       id: 'detective',
-      label: 'Detective Probe',
-      desc: 'Ambiguity clarified',
+      label: 'Clarified',
+      desc: 'Narrowed down',
       completed: hasDetectiveAnswered || status === 'claim_pending' || status === 'verified' || status === 'recovered',
       current: status === 'potential_match' && hasDetectiveAnswered,
     },
     {
       id: 'claimed',
-      label: 'Claim Submitted',
-      desc: 'Protected clue verified',
+      label: 'Claim Filed',
+      desc: 'Proof submitted',
       completed: status === 'claim_pending' || status === 'verified' || status === 'recovered',
       current: status === 'claim_pending',
     },
     {
       id: 'review',
-      label: 'Staff Decision',
-      desc: 'Custody authorization',
+      label: 'Staff Check',
+      desc: 'Reviewed at desk',
       completed: status === 'verified' || status === 'recovered',
       current: status === 'claim_pending',
     },
     {
       id: 'recovered',
-      label: 'Handover & Closed',
-      desc: 'Reunited with owner',
+      label: 'Recovered 🎉',
+      desc: 'Handed back',
       completed: status === 'recovered',
       current: status === 'verified',
     },
   ];
 
   return (
-    <div className={`p-5 rounded-2xl bg-slate-900/80 border border-slate-800 ${className}`}>
-      <div className="flex items-center justify-between mb-4">
-        <span className="text-xs font-mono font-bold uppercase tracking-wider text-blue-400">
-          INVESTIGATION RECOVERY TIMELINE
+    <div className={`p-5 rounded-[18px] bg-white border border-[#EAEAEA] shadow-sm ${className}`}>
+      <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#F0F0F0]">
+        <span className="text-xs font-bold uppercase tracking-wider text-[#E53935]">
+          Recovery Progress
         </span>
-        <span className="text-[11px] text-slate-400 font-mono">
-          Status: <strong className="text-white uppercase">{status.replace('_', ' ')}</strong>
+        <span className="text-xs text-[#666666]">
+          Current status: <strong className="text-[#171717] uppercase font-bold">{status.replace('_', ' ')}</strong>
         </span>
       </div>
 
       <div className="relative">
-        {/* Horizontal bar on desktop, stacked on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-7 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-7 gap-3">
           {steps.map((step, index) => {
             const isLast = index === steps.length - 1;
 
             return (
-              <div key={step.id} className="relative flex md:flex-col items-center md:text-center gap-3 md:gap-2">
-                {/* Connector Line for desktop */}
+              <div key={step.id} className="relative flex sm:flex-col items-center sm:text-center gap-3 sm:gap-2">
                 {!isLast && (
                   <div
-                    className={`hidden md:block absolute top-4 left-1/2 w-full h-0.5 -z-0 ${
-                      step.completed ? 'bg-emerald-500/60' : 'bg-slate-800'
+                    className={`hidden sm:block absolute top-4 left-1/2 w-full h-0.5 -z-0 ${
+                      step.completed ? 'bg-[#E53935]' : 'bg-[#EAEAEA]'
                     }`}
                   />
                 )}
 
-                {/* Node Icon */}
+                {/* Node icon */}
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 z-10 transition-all ${
                     step.completed
-                      ? 'bg-emerald-500 text-slate-950 ring-4 ring-emerald-500/20'
+                      ? 'bg-[#E53935] text-white shadow-xs'
                       : step.current
-                      ? 'bg-blue-600 text-white ring-4 ring-blue-500/30 animate-pulse'
-                      : 'bg-slate-800 text-slate-500 border border-slate-700'
+                      ? 'bg-[#FFF0F0] text-[#E53935] border-2 border-[#E53935]'
+                      : 'bg-[#F5F5F5] text-[#999999] border border-[#EAEAEA]'
                   }`}
                 >
                   {step.completed ? (
                     <Check className="w-4 h-4 stroke-[3]" />
                   ) : step.current ? (
-                    <Clock className="w-4 h-4" />
+                    <Clock className="w-4 h-4 text-[#E53935]" />
                   ) : (
                     <span>{index + 1}</span>
                   )}
                 </div>
 
-                {/* Label & Description */}
-                <div className="md:w-full overflow-hidden">
+                <div className="sm:w-full overflow-hidden">
                   <span
-                    className={`block text-xs font-semibold truncate ${
+                    className={`block text-xs font-bold truncate ${
                       step.completed
-                        ? 'text-slate-100'
+                        ? 'text-[#171717]'
                         : step.current
-                        ? 'text-blue-400 font-bold'
-                        : 'text-slate-500'
+                        ? 'text-[#E53935]'
+                        : 'text-[#999999]'
                     }`}
                   >
                     {step.label}
                   </span>
-                  <span className="block text-[10px] text-slate-400 truncate">
+                  <span className="block text-[10px] text-[#666666] truncate">
                     {step.desc}
                   </span>
                 </div>

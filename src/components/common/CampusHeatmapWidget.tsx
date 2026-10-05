@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CampusLocationItem } from '../../types';
 import { api } from '../../services/api';
-import { MapPin, Flame, Shield, Compass, Layers, CheckCircle2 } from 'lucide-react';
+import { MapPin, Flame, CheckCircle2 } from 'lucide-react';
 
 interface CampusHeatmapWidgetProps {
   onSelectZone?: (zoneName: string) => void;
@@ -48,29 +48,31 @@ export const CampusHeatmapWidget: React.FC<CampusHeatmapWidgetProps> = ({
   };
 
   return (
-    <div className={`rounded-3xl bg-slate-950 border border-slate-800 p-6 shadow-2xl relative overflow-hidden ${className}`}>
-      {/* Top Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+    <div className={`rounded-[20px] bg-white border border-[#EAEAEA] p-6 shadow-sm space-y-6 ${className}`}>
+      {/* Header */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h3 className="text-base font-bold text-white flex items-center gap-2">
-            <Flame className="w-5 h-5 text-amber-500 animate-pulse" />
-            Interactive Campus Incident Heatmap
-          </h3>
-          <p className="text-xs text-slate-400">
-            Real-time loss density, retrieval hotspots, and recovery statistics across campus zones
+          <div className="flex items-center gap-2 mb-0.5">
+            <span className="text-xl">📍</span>
+            <h3 className="text-base font-extrabold text-[#171717]">
+              Campus Lost & Found Map
+            </h3>
+          </div>
+          <p className="text-xs text-[#666666]">
+            See which spots on campus have the most reports and recovered items
           </p>
         </div>
 
         {/* Category Pills */}
-        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-900 border border-slate-800 text-xs">
+        <div className="flex items-center gap-1.5 p-1 rounded-[12px] bg-[#F5F5F5] border border-[#EAEAEA] text-xs">
           {['all', 'academic', 'dining', 'residential', 'athletics'].map((cat) => (
             <button
               key={cat}
               onClick={() => setFilterCategory(cat)}
-              className={`px-3 py-1 rounded-lg capitalize font-medium transition ${
+              className={`px-3 py-1 rounded-[9px] capitalize font-semibold transition ${
                 filterCategory === cat
-                  ? 'bg-blue-600 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-white text-[#E53935] shadow-xs border border-[#EAEAEA]'
+                  : 'text-[#666666] hover:text-[#171717]'
               }`}
             >
               {cat}
@@ -79,53 +81,47 @@ export const CampusHeatmapWidget: React.FC<CampusHeatmapWidgetProps> = ({
         </div>
       </div>
 
-      {/* Main Grid: Interactive Map (Left) & Zone Dossier (Right) */}
+      {/* Grid: Map on Left, Zone Info on Right */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* SVG Campus Map Canvas (7 Cols) */}
-        <div className="lg:col-span-7 rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4 relative overflow-hidden flex flex-col items-center">
-          {/* Subtle grid pattern background */}
-          <div
-            className="absolute inset-0 opacity-15 pointer-events-none"
-            style={{
-              backgroundImage: 'radial-gradient(#38BDF8 1px, transparent 1px)',
-              backgroundSize: '24px 24px',
-            }}
-          />
-
+        {/* Map Canvas (7 Cols) */}
+        <div className="lg:col-span-7 rounded-[16px] bg-[#FAFAFA] border border-[#EAEAEA] p-4 relative overflow-hidden flex flex-col items-center">
           <svg
             viewBox="0 0 100 100"
             className="w-full max-w-md h-auto select-none"
-            style={{ minHeight: '320px' }}
+            style={{ minHeight: '300px' }}
           >
-            {/* Campus Pathways & Quad Contour Lines */}
+            {/* Campus Pathways */}
             <path
               d="M 15 80 Q 35 60 50 48 T 82 28"
               fill="none"
-              stroke="#1E293B"
-              strokeWidth="2.5"
+              stroke="#E5E5E5"
+              strokeWidth="3"
               strokeDasharray="2 2"
             />
             <path
               d="M 42 35 L 50 48 L 48 62"
               fill="none"
-              stroke="#1E293B"
-              strokeWidth="2.5"
+              stroke="#E5E5E5"
+              strokeWidth="3"
             />
             <path
               d="M 25 50 L 50 48 L 65 45"
               fill="none"
-              stroke="#1E293B"
-              strokeWidth="2.5"
+              stroke="#E5E5E5"
+              strokeWidth="3"
             />
 
-            {/* Central Quad Lawn contour */}
-            <circle cx="50" cy="48" r="14" fill="#064E3B" opacity="0.15" stroke="#059669" strokeWidth="0.5" strokeDasharray="1 1" />
+            {/* Central Quad Green Lawn */}
+            <circle cx="50" cy="48" r="14" fill="#E8F5E9" stroke="#C8E6C9" strokeWidth="1" />
+            <text x="50" y="49" textAnchor="middle" fill="#2E7D32" fontSize="2.8" fontWeight="bold">
+              Campus Quad
+            </text>
 
             {/* Campus Zone Pins */}
             {filteredLocations.map((loc) => {
               const isSelected = selectedLoc?.id === loc.id;
               const intensity = loc.intensity || (loc.loss_count / 15);
-              const heatColor = intensity > 0.6 ? '#EF4444' : intensity > 0.35 ? '#F59E0B' : '#3B82F6';
+              const isHigh = intensity > 0.5;
 
               return (
                 <g
@@ -134,29 +130,27 @@ export const CampusHeatmapWidget: React.FC<CampusHeatmapWidgetProps> = ({
                   className="cursor-pointer transition-all duration-300"
                   onClick={() => handleZoneClick(loc)}
                 >
-                  {/* Heat Intensity Ring */}
+                  {/* Subtle Red Heat Aura */}
                   <circle
-                    r={isSelected ? 10 : 7 * (0.8 + intensity * 0.6)}
-                    fill={heatColor}
-                    opacity={isSelected ? 0.4 : 0.2}
-                    className={intensity > 0.6 ? 'animate-pulse' : ''}
+                    r={isSelected ? 10 : 6 + intensity * 4}
+                    fill={isHigh ? '#E53935' : '#FF8A80'}
+                    opacity={isSelected ? 0.35 : 0.18}
                   />
 
-                  {/* Core Node */}
+                  {/* Pin Circle */}
                   <circle
-                    r={isSelected ? 3.8 : 2.8}
-                    fill={isSelected ? '#FFFFFF' : heatColor}
-                    stroke="#0B1120"
-                    strokeWidth="1"
+                    r={isSelected ? 4 : 3}
+                    fill={isSelected ? '#E53935' : '#FFFFFF'}
+                    stroke="#E53935"
+                    strokeWidth="1.5"
                   />
 
-                  {/* Zone Code Label */}
+                  {/* Pin Dot / Code */}
                   <text
                     textAnchor="middle"
                     y={-5}
-                    fill={isSelected ? '#FFFFFF' : '#94A3B8'}
-                    fontSize="3.2"
-                    fontFamily="monospace"
+                    fill={isSelected ? '#C62828' : '#171717'}
+                    fontSize="3"
                     fontWeight="bold"
                   >
                     {loc.code}
@@ -167,94 +161,94 @@ export const CampusHeatmapWidget: React.FC<CampusHeatmapWidgetProps> = ({
           </svg>
 
           {/* Map Legend */}
-          <div className="w-full flex items-center justify-between pt-3 border-t border-slate-800 text-[10px] text-slate-400 font-mono">
+          <div className="w-full flex items-center justify-between pt-3 border-t border-[#EAEAEA] text-[11px] text-[#666666]">
             <span className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-red-500" /> High Loss Zone
+              <span className="w-2.5 h-2.5 rounded-full bg-[#E53935]" /> More reports
             </span>
             <span className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-amber-500" /> Moderate Activity
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FF8A80]" /> Normal activity
             </span>
             <span className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-blue-500" /> Monitored Baseline
+              <span className="w-2.5 h-2.5 rounded-full bg-[#E8F5E9] border border-[#A5D6A7]" /> Green quad
             </span>
           </div>
         </div>
 
-        {/* Selected Zone Dossier & Density List (5 Cols) */}
+        {/* Selected Zone Dossier (5 Cols) */}
         <div className="lg:col-span-5 space-y-4">
           {selectedLoc && (
-            <div className="p-5 rounded-2xl bg-slate-900 border border-blue-500/30 shadow-xl">
-              <div className="flex items-start justify-between mb-3">
+            <div className="p-5 rounded-[16px] bg-white border border-[#EAEAEA] shadow-xs">
+              <div className="flex items-start justify-between mb-2">
                 <div>
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-blue-400 font-bold block mb-0.5">
-                    ZONE INSPECTION DOSSIER
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#E53935] block mb-0.5">
+                    SELECTED AREA
                   </span>
-                  <h4 className="text-base font-bold text-white flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-blue-400" />
+                  <h4 className="text-base font-extrabold text-[#171717] flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-[#E53935]" />
                     {selectedLoc.name}
                   </h4>
                 </div>
-                <span className="px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 font-mono text-xs">
+                <span className="px-2.5 py-0.5 rounded-full bg-[#F5F5F5] border border-[#EAEAEA] text-[#171717] font-bold text-xs">
                   {selectedLoc.code}
                 </span>
               </div>
 
-              <p className="text-xs text-slate-400 mb-4 leading-relaxed">
+              <p className="text-xs text-[#666666] mb-4 leading-relaxed">
                 {selectedLoc.description}
               </p>
 
-              {/* Stats Grid */}
-              <div className="grid grid-cols-3 gap-2 py-3 border-y border-slate-800 text-center mb-4">
-                <div className="p-2 rounded-xl bg-slate-950/60">
-                  <span className="text-[10px] uppercase font-mono text-slate-400 block">LOST</span>
-                  <span className="text-base font-bold text-red-400 font-mono">
+              {/* Stats Box */}
+              <div className="grid grid-cols-3 gap-2 py-3 border-y border-[#F0F0F0] text-center mb-4">
+                <div className="p-2.5 rounded-[12px] bg-[#FAFAFA]">
+                  <span className="text-[10px] uppercase font-bold text-[#666666] block">LOST</span>
+                  <span className="text-base font-extrabold text-[#E53935]">
                     {selectedLoc.loss_count}
                   </span>
                 </div>
-                <div className="p-2 rounded-xl bg-slate-950/60">
-                  <span className="text-[10px] uppercase font-mono text-slate-400 block">FOUND</span>
-                  <span className="text-base font-bold text-emerald-400 font-mono">
+                <div className="p-2.5 rounded-[12px] bg-[#FAFAFA]">
+                  <span className="text-[10px] uppercase font-bold text-[#666666] block">FOUND</span>
+                  <span className="text-base font-extrabold text-[#171717]">
                     {selectedLoc.found_count}
                   </span>
                 </div>
-                <div className="p-2 rounded-xl bg-slate-950/60">
-                  <span className="text-[10px] uppercase font-mono text-slate-400 block">RECOVERY</span>
-                  <span className="text-base font-bold text-blue-400 font-mono">
+                <div className="p-2.5 rounded-[12px] bg-[#FAFAFA]">
+                  <span className="text-[10px] uppercase font-bold text-[#666666] block">RECOVERY</span>
+                  <span className="text-base font-extrabold text-emerald-600">
                     {selectedLoc.recovery_rate}%
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-xs text-slate-300">
-                <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
-                  <CheckCircle2 className="w-4 h-4" /> Campus Security Patrolled
+              <div className="flex items-center justify-between text-xs text-[#666666]">
+                <span className="flex items-center gap-1.5 text-emerald-700 font-medium">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Active Campus Patrol
                 </span>
                 <button
                   onClick={() => onSelectZone && onSelectZone(selectedLoc.name)}
-                  className="text-xs text-blue-400 hover:text-blue-300 font-medium underline"
+                  className="text-xs text-[#E53935] hover:text-[#C62828] font-bold underline"
                 >
-                  View items here →
+                  See items in this area →
                 </button>
               </div>
             </div>
           )}
 
-          {/* Density Bars */}
-          <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 text-xs">
-            <span className="text-[10px] font-mono uppercase text-slate-400 tracking-wider block mb-3">
-              HIGHEST REPORT DENSITY BY ZONE
+          {/* Top Activity Spots */}
+          <div className="p-4 rounded-[16px] bg-[#FAFAFA] border border-[#EAEAEA] text-xs">
+            <span className="text-[11px] font-bold uppercase text-[#666666] tracking-wider block mb-3">
+              AREAS WITH MOST ACTIVITY
             </span>
             <div className="space-y-2.5">
               {hotspots.slice(0, 4).map((h, i) => (
                 <div key={i}>
-                  <div className="flex justify-between text-xs text-slate-300 mb-1">
-                    <span className="font-medium">{h.zone}</span>
-                    <span className="font-mono text-slate-400">{h.count} incidents</span>
+                  <div className="flex justify-between text-xs text-[#171717] mb-1">
+                    <span className="font-semibold">{h.zone}</span>
+                    <span className="text-[#666666] font-medium">{h.count} reports</span>
                   </div>
-                  <div className="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden">
+                  <div className="w-full h-1.5 rounded-full bg-[#E5E5E5] overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-blue-500 to-amber-500 rounded-full"
-                      style={{ width: `${Math.min(100, (h.count / 25) * 100)}%` }}
+                      className="h-full bg-[#E53935] rounded-full"
+                      style={{ width: `${Math.min(100, (h.count / 22) * 100)}%` }}
                     />
                   </div>
                 </div>

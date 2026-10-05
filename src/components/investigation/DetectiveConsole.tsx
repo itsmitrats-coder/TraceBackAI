@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { DetectiveQuestion, DetectiveAnswerResponse } from '../../types';
 import { api } from '../../services/api';
-import { HelpCircle, Sparkles, Check, X, HelpCircle as QuestionIcon, RefreshCw, ArrowUpRight, ArrowDownRight } from 'lucide-react';
+import { Sparkles, Check, X, HelpCircle, RefreshCw, ArrowUpRight } from 'lucide-react';
 
 interface DetectiveConsoleProps {
   lostItemId: string;
@@ -48,94 +48,81 @@ export const DetectiveConsole: React.FC<DetectiveConsoleProps> = ({
   };
 
   return (
-    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950/40 to-slate-950 border border-indigo-500/30 p-6 shadow-2xl">
-      {/* Background Cyber Accents */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-
-      {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-indigo-900/40 mb-5">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-2xl bg-indigo-600/20 border border-indigo-500/40 flex items-center justify-center text-xl shadow-inner">
-            🕵️
+    <div className="rounded-[18px] bg-white border border-[#EAEAEA] p-6 shadow-sm space-y-4">
+      {/* Friendly Header */}
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#F0F0F0]">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="text-xl">👀</span>
+            <h3 className="text-base font-extrabold text-[#171717]">
+              One more thing...
+            </h3>
           </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-base font-bold text-white tracking-tight">
-                TRACEBACK DETECTIVE MODE
-              </h3>
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 animate-pulse">
-                Active Inquiry
-              </span>
-            </div>
-            <p className="text-xs text-slate-400">
-              One targeted clarification question to break candidate ambiguity
-            </p>
-          </div>
+          <p className="text-xs text-[#666666] mt-0.5">
+            A quick detail could help us confirm which item is yours.
+          </p>
         </div>
 
         <button
           onClick={fetchQuestion}
           disabled={isLoadingQuestion || isSubmitting}
-          className="px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-300 text-xs font-medium flex items-center gap-1.5 transition"
+          className="px-3 py-1.5 rounded-full bg-[#F5F5F5] hover:bg-[#EAEAEA] text-[#666666] text-xs font-semibold flex items-center gap-1.5 transition"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${isLoadingQuestion ? 'animate-spin' : ''}`} />
-          <span>New Probe</span>
+          <span>New question</span>
         </button>
       </div>
 
-      {/* Re-evaluating State */}
+      {/* Submitting State */}
       {isSubmitting ? (
-        <div className="py-10 text-center space-y-3">
-          <div className="relative w-12 h-12 mx-auto">
-            <div className="absolute inset-0 rounded-full border-2 border-indigo-500/20 animate-ping" />
-            <div className="w-12 h-12 rounded-full border-2 border-indigo-500 border-t-transparent animate-spin" />
-          </div>
-          <p className="text-sm font-medium text-slate-200">Re-evaluating evidence matrix...</p>
-          <p className="text-xs text-slate-400">Recalculating forensic vector weights across candidates</p>
+        <div className="py-8 text-center space-y-2 animate-fade-in">
+          <div className="w-8 h-8 rounded-full border-3 border-[#E53935] border-t-transparent animate-spin mx-auto" />
+          <p className="text-sm font-bold text-[#171717]">Checking the clues...</p>
+          <p className="text-xs text-[#666666]">Adjusting match rankings based on your answer</p>
         </div>
       ) : lastResult ? (
-        /* Results Breakdown after Answering */
+        /* Friendly Success Response */
         <div className="space-y-4 animate-fade-in">
-          <div className="p-4 rounded-2xl bg-emerald-950/40 border border-emerald-500/30">
-            <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase font-mono mb-1">
-              <Sparkles className="w-4 h-4" />
-              EVIDENCE RE-CALIBRATED SUCCESSFULLY
+          <div className="p-4 rounded-[14px] bg-[#FFF0F0] border border-[#FFCDD2]">
+            <div className="flex items-center gap-2 text-[#C62828] font-bold text-xs uppercase mb-1">
+              <Sparkles className="w-4 h-4 text-[#E53935]" />
+              Nice. That helped narrow it down.
             </div>
-            <p className="text-xs text-slate-200 leading-relaxed font-medium">
+            <p className="text-xs text-[#171717] font-medium leading-relaxed">
               {lastResult.explanation}
             </p>
           </div>
 
-          {/* Ranking Deltas List */}
+          {/* Ranking Adjustments */}
           {lastResult.score_deltas && lastResult.score_deltas.length > 0 && (
             <div className="space-y-2">
-              <span className="text-[11px] font-mono uppercase text-slate-400 tracking-wider block">
-                CANDIDATE RANKING ADJUSTMENT:
+              <span className="text-[11px] font-bold text-[#666666] uppercase block">
+                Rankings updated:
               </span>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 {lastResult.score_deltas.slice(0, 3).map((delta) => {
                   const isPositive = delta.delta > 0;
                   return (
                     <div
                       key={delta.match_id}
-                      className="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between"
+                      className="p-3 rounded-[12px] bg-[#FAFAFA] border border-[#EAEAEA] flex items-center justify-between"
                     >
                       <div className="overflow-hidden pr-2">
-                        <span className="text-xs font-semibold text-white truncate block">
+                        <span className="text-xs font-bold text-[#171717] truncate block">
                           {delta.title}
                         </span>
-                        <span className="text-[10px] text-slate-400 font-mono">
+                        <span className="text-[10px] text-[#666666]">
                           {delta.score_before}% → {delta.score_after}%
                         </span>
                       </div>
                       <div
-                        className={`flex items-center gap-0.5 text-xs font-bold font-mono px-2 py-0.5 rounded ${
+                        className={`flex items-center text-xs font-bold px-2 py-0.5 rounded ${
                           isPositive
-                            ? 'text-emerald-400 bg-emerald-950/60 border border-emerald-800'
-                            : 'text-slate-400 bg-slate-800'
+                            ? 'text-[#C62828] bg-[#FFF0F0]'
+                            : 'text-[#666666] bg-[#EAEAEA]'
                         }`}
                       >
-                        {isPositive ? <ArrowUpRight className="w-3.5 h-3.5" /> : <ArrowDownRight className="w-3.5 h-3.5" />}
+                        {isPositive ? <ArrowUpRight className="w-3.5 h-3.5" /> : null}
                         <span>{delta.delta > 0 ? `+${delta.delta}%` : `${delta.delta}%`}</span>
                       </div>
                     </div>
@@ -145,68 +132,60 @@ export const DetectiveConsole: React.FC<DetectiveConsoleProps> = ({
             </div>
           )}
 
-          <div className="flex justify-end pt-2">
+          <div className="flex justify-end pt-1">
             <button
               onClick={fetchQuestion}
-              className="text-xs text-indigo-400 hover:text-indigo-300 font-medium underline flex items-center gap-1"
+              className="text-xs text-[#E53935] hover:text-[#C62828] font-bold underline"
             >
-              Ask another clarifying question
+              Ask another question
             </button>
           </div>
         </div>
       ) : question ? (
-        /* Question Active Prompt */
-        <div className="space-y-5">
-          <div className="p-4 rounded-2xl bg-indigo-950/30 border border-indigo-500/20">
-            <span className="text-[11px] font-mono uppercase text-indigo-400 tracking-wider block mb-1.5">
-              FORENSIC INVESTIGATION QUESTION
-            </span>
-            <p className="text-base text-white font-medium leading-relaxed">
+        /* The Targeted Question */
+        <div className="space-y-4">
+          <div className="p-4 rounded-[14px] bg-[#FAFAFA] border border-[#EAEAEA]">
+            <p className="text-sm text-[#171717] font-bold leading-relaxed mb-1">
               "{question.question}"
             </p>
             {question.context && (
-              <p className="text-xs text-slate-400 mt-2 flex items-center gap-1.5">
-                <HelpCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-                <span>{question.context}</span>
+              <p className="text-xs text-[#666666]">
+                {question.context}
               </p>
             )}
           </div>
 
-          {/* Targeted Answer Actions */}
-          <div className="flex flex-wrap items-center gap-3">
+          {/* Student-Friendly Action Buttons */}
+          <div className="flex flex-wrap items-center gap-2.5">
             <button
               onClick={() => handleAnswer('YES')}
-              className="flex-1 min-w-[120px] py-3 px-4 rounded-xl bg-emerald-600/90 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/30 transition transform active:scale-95"
+              className="flex-1 min-w-[120px] py-2.5 px-4 rounded-[12px] bg-[#E53935] hover:bg-[#C62828] text-white font-bold text-xs uppercase tracking-wide transition shadow-xs"
             >
-              <Check className="w-4 h-4" />
-              <span>YES</span>
+              YES, IT DID
             </button>
 
             <button
               onClick={() => handleAnswer('NO')}
-              className="flex-1 min-w-[120px] py-3 px-4 rounded-xl bg-rose-600/80 hover:bg-rose-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-rose-900/30 transition transform active:scale-95"
+              className="flex-1 min-w-[120px] py-2.5 px-4 rounded-[12px] bg-white hover:bg-[#FAFAFA] text-[#171717] border border-[#D4D4D4] font-bold text-xs uppercase tracking-wide transition"
             >
-              <X className="w-4 h-4" />
-              <span>NO</span>
+              NOPE
             </button>
 
             <button
               onClick={() => handleAnswer("I DON'T KNOW")}
-              className="flex-1 min-w-[140px] py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 border border-slate-700 transition"
+              className="flex-1 min-w-[140px] py-2.5 px-4 rounded-[12px] bg-[#F5F5F5] hover:bg-[#EAEAEA] text-[#666666] font-semibold text-xs uppercase tracking-wide transition"
             >
-              <QuestionIcon className="w-4 h-4 text-slate-400" />
-              <span>I DON'T KNOW</span>
+              I DON'T REMEMBER
             </button>
           </div>
         </div>
       ) : (
-        <div className="py-6 text-center text-slate-400 text-xs">
-          <p className="mb-3">Detective Mode is ready to probe candidates for distinguishing quirks.</p>
+        <div className="py-4 text-center text-[#666666] text-xs">
           <button
             onClick={fetchQuestion}
-            className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition text-xs shadow-md shadow-indigo-600/30"
+            className="px-4 py-2 rounded-[12px] bg-[#FFF0F0] text-[#E53935] border border-[#FFCDD2] font-bold text-xs hover:bg-[#FFE4E6] transition"
           >
-            Formulate Disambiguation Question
+            Check if a question can help narrow it down
           </button>
         </div>
       )}

@@ -26,25 +26,25 @@ export const AuditTrailPage: React.FC = () => {
 
   return (
     <div className="space-y-8 animate-fade-in pb-16">
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#EAEAEA]">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-blue-400 font-bold block mb-1">
-            ACCOUNTABILITY LAYER
+          <span className="text-xs font-bold uppercase tracking-wider text-[#E53935] block mb-1">
+            SECURITY & AUDIT
           </span>
-          <h1 className="text-3xl font-black text-white tracking-tight">
+          <h1 className="text-3xl font-black text-[#171717] tracking-tight">
             Institutional Audit Trail
           </h1>
-          <p className="text-xs text-slate-400">
-            Immutable timeline of critical claim decisions, forensic fingerprint syntheses, and custody handovers
+          <p className="text-xs text-[#666666]">
+            Transparent timeline of student reports, claim decisions, and verified physical handovers.
           </p>
         </div>
 
         <button
           onClick={fetchLogs}
-          className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-xs font-medium flex items-center gap-2 transition"
+          className="px-3.5 py-2 rounded-xl bg-white border border-[#EAEAEA] text-[#666666] hover:text-[#171717] hover:bg-[#F9F9F9] text-xs font-semibold flex items-center gap-2 transition"
         >
           <RefreshCw className="w-3.5 h-3.5" />
-          <span>Refresh Audit</span>
+          <span>Refresh Logs</span>
         </button>
       </div>
 
@@ -54,10 +54,10 @@ export const AuditTrailPage: React.FC = () => {
           <button
             key={act}
             onClick={() => setFilterAction(act)}
-            className={`px-3 py-1.5 rounded-xl capitalize font-mono text-[11px] transition ${
+            className={`px-3 py-1.5 rounded-full capitalize text-xs transition ${
               filterAction === act
-                ? 'bg-blue-600 text-white font-bold'
-                : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
+                ? 'bg-[#E53935] text-white font-bold'
+                : 'bg-white text-[#666666] hover:text-[#171717] border border-[#EAEAEA]'
             }`}
           >
             {act.replace('_', ' ')}
@@ -65,19 +65,19 @@ export const AuditTrailPage: React.FC = () => {
         ))}
       </div>
 
-      {/* Timeline View (Section 27) */}
+      {/* Timeline View */}
       {isLoading ? (
         <div className="py-20 text-center space-y-3">
-          <div className="w-10 h-10 rounded-full border-4 border-blue-500 border-t-transparent animate-spin mx-auto" />
-          <p className="text-xs text-slate-400 font-mono">Loading audit logs...</p>
+          <div className="w-10 h-10 rounded-full border-4 border-[#FFF0F0] border-t-[#E53935] animate-spin mx-auto" />
+          <p className="text-xs text-[#666666]">Loading audit history...</p>
         </div>
       ) : logs.length === 0 ? (
-        <div className="py-16 text-center text-slate-400 rounded-3xl bg-slate-900 border border-slate-800">
-          <FileText className="w-10 h-10 mx-auto mb-2 text-slate-600" />
-          <p className="text-sm font-semibold text-white">No audit records found.</p>
+        <div className="py-16 text-center text-[#666666] rounded-3xl bg-white border border-[#EAEAEA]">
+          <FileText className="w-10 h-10 mx-auto mb-2 text-[#666666]" />
+          <p className="text-sm font-bold text-[#171717]">No audit records found.</p>
         </div>
       ) : (
-        <div className="relative border-l-2 border-slate-800 ml-4 sm:ml-6 pl-6 sm:pl-8 space-y-6">
+        <div className="relative border-l-2 border-[#EAEAEA] ml-4 sm:ml-6 pl-6 sm:pl-8 space-y-6">
           {logs.map((log) => {
             const isRecovery = log.action.includes('RECOVERED');
             const isApproval = log.action.includes('APPROVED');
@@ -87,40 +87,40 @@ export const AuditTrailPage: React.FC = () => {
               <div key={log.id} className="relative group">
                 {/* Node on vertical line */}
                 <div
-                  className={`absolute -left-[31px] sm:-left-[39px] top-1.5 w-5 h-5 rounded-full border-2 border-slate-950 flex items-center justify-center ${
+                  className={`absolute -left-[31px] sm:-left-[39px] top-1.5 w-5 h-5 rounded-full border-2 border-white flex items-center justify-center ${
                     isRecovery
-                      ? 'bg-emerald-500 ring-4 ring-emerald-500/20'
+                      ? 'bg-emerald-500 ring-4 ring-emerald-100'
                       : isApproval
-                      ? 'bg-blue-500 ring-4 ring-blue-500/20'
+                      ? 'bg-[#E53935] ring-4 ring-[#FFF0F0]'
                       : isClaim
-                      ? 'bg-purple-500 ring-4 ring-purple-500/20'
-                      : 'bg-slate-700'
+                      ? 'bg-blue-500 ring-4 ring-blue-100'
+                      : 'bg-neutral-400'
                   }`}
                 />
 
-                <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 group-hover:border-slate-700 transition space-y-2">
+                <div className="p-5 rounded-2xl bg-white border border-[#EAEAEA] group-hover:border-[#171717]/20 transition space-y-2 shadow-2xs">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div className="flex items-center space-x-2">
-                      <span className="px-2.5 py-0.5 rounded-md font-mono text-[10px] font-bold uppercase bg-slate-950 border border-slate-800 text-cyan-400">
+                      <span className="px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase bg-[#FFF0F0] text-[#E53935] border border-[#E53935]/20">
                         {log.action}
                       </span>
-                      <span className="text-xs font-semibold text-white">
-                        Target: {log.target_type} ({log.target_id})
+                      <span className="text-xs font-bold text-[#171717]">
+                        Target: {log.target_type} ({log.target_id.slice(-6)})
                       </span>
                     </div>
 
-                    <span className="text-[11px] font-mono text-slate-400">
+                    <span className="text-xs text-[#666666]">
                       {new Date(log.timestamp).toLocaleString()}
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-2 text-xs text-slate-300">
-                    <User className="w-3.5 h-3.5 text-blue-400" />
-                    <span>Actor: <strong className="text-white">{log.actor_name}</strong> ({log.actor_role})</span>
+                  <div className="flex items-center gap-2 text-xs text-[#666666]">
+                    <User className="w-3.5 h-3.5 text-[#E53935]" />
+                    <span>Actor: <strong className="text-[#171717]">{log.actor_name}</strong> ({log.actor_role})</span>
                   </div>
 
                   {log.metadata && Object.keys(log.metadata).length > 0 && (
-                    <div className="p-3 rounded-xl bg-slate-950 border border-slate-800/80 text-[11px] font-mono text-slate-400">
+                    <div className="p-3 rounded-xl bg-[#FFF7F7] border border-[#EAEAEA] text-xs text-[#666666] font-mono">
                       <pre className="overflow-x-auto whitespace-pre-wrap">
                         {JSON.stringify(log.metadata, null, 2)}
                       </pre>
