@@ -1,0 +1,1405 @@
+{
+  "users": [
+    {
+      "id": "usr_student_1",
+      "name": "Alex Rivera",
+      "email": "student@traceback.demo",
+      "password": "password123",
+      "role": "student",
+      "department": "Computer Science & Engineering",
+      "avatar_url": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+      "created_at": "2026-10-03T05:29:01.101452"
+    },
+    {
+      "id": "usr_staff_1",
+      "name": "Officer Marcus Vance",
+      "email": "staff@traceback.demo",
+      "password": "password123",
+      "role": "staff",
+      "department": "Campus Security & Custody Dispatch",
+      "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
+      "created_at": "2026-10-03T05:29:01.101452"
+    },
+    {
+      "id": "usr_admin_1",
+      "name": "Dr. Sarah Chen",
+      "email": "admin@traceback.demo",
+      "password": "password123",
+      "role": "admin",
+      "department": "Director of Campus Operations",
+      "avatar_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80",
+      "created_at": "2026-10-03T05:29:01.101452"
+    }
+  ],
+  "campus_locations": [
+    {
+      "id": "loc_lib",
+      "name": "Central Library",
+      "code": "LIB",
+      "category": "Academic",
+      "x": 42.0,
+      "y": 35.0,
+      "description": "Quiet study pods, 2nd floor stacks, and reading hall",
+      "loss_count": 16,
+      "found_count": 11,
+      "recovery_rate": 78.5
+    },
+    {
+      "id": "loc_acad",
+      "name": "Main Academic Block",
+      "code": "MAB",
+      "category": "Academic",
+      "x": 25.0,
+      "y": 50.0,
+      "description": "Lecture Halls 1-12, faculty offices, central atrium",
+      "loss_count": 9,
+      "found_count": 7,
+      "recovery_rate": 77.7
+    },
+    {
+      "id": "loc_labs",
+      "name": "Science & Computing Labs",
+      "code": "SCL",
+      "category": "Laboratory",
+      "x": 65.0,
+      "y": 45.0,
+      "description": "Robotics center, AI workstations, chemistry annex",
+      "loss_count": 7,
+      "found_count": 5,
+      "recovery_rate": 71.4
+    },
+    {
+      "id": "loc_cafe",
+      "name": "Student Cafeteria",
+      "code": "CAF",
+      "category": "Dining",
+      "x": 48.0,
+      "y": 62.0,
+      "description": "Main food court, coffee bar, and outdoor terrace",
+      "loss_count": 12,
+      "found_count": 10,
+      "recovery_rate": 83.3
+    },
+    {
+      "id": "loc_sports",
+      "name": "Sports Complex & Gym",
+      "code": "SPX",
+      "category": "Athletics",
+      "x": 78.0,
+      "y": 28.0,
+      "description": "Basketball courts, locker rooms, swimming pavilion",
+      "loss_count": 6,
+      "found_count": 4,
+      "recovery_rate": 66.6
+    },
+    {
+      "id": "loc_hostel",
+      "name": "Student Hostels & Dorms",
+      "code": "DORM",
+      "category": "Residential",
+      "x": 82.0,
+      "y": 72.0,
+      "description": "Undergrad residential towers and common lounges",
+      "loss_count": 8,
+      "found_count": 5,
+      "recovery_rate": 62.5
+    },
+    {
+      "id": "loc_aud",
+      "name": "University Auditorium",
+      "code": "AUD",
+      "category": "Events",
+      "x": 18.0,
+      "y": 25.0,
+      "description": "Concert hall, amphitheater, and seminar rooms",
+      "loss_count": 4,
+      "found_count": 3,
+      "recovery_rate": 75.0
+    },
+    {
+      "id": "loc_inno",
+      "name": "Innovation & Maker Space",
+      "code": "INNO",
+      "category": "Workshop",
+      "x": 35.0,
+      "y": 78.0,
+      "description": "3D printing lab, hardware prototyping benches",
+      "loss_count": 5,
+      "found_count": 4,
+      "recovery_rate": 80.0
+    },
+    {
+      "id": "loc_green",
+      "name": "Campus Green & Quad",
+      "code": "QUAD",
+      "category": "Outdoors",
+      "x": 50.0,
+      "y": 48.0,
+      "description": "Central lawn, amphitheater steps, solar benches",
+      "loss_count": 6,
+      "found_count": 4,
+      "recovery_rate": 66.6
+    },
+    {
+      "id": "loc_park",
+      "name": "North Parking Area",
+      "code": "PRK",
+      "category": "Transit",
+      "x": 15.0,
+      "y": 80.0,
+      "description": "EV charging stations, bike lockers, transit bus stop",
+      "loss_count": 3,
+      "found_count": 2,
+      "recovery_rate": 66.6
+    }
+  ],
+  "lost_items": [
+    {
+      "id": "lost_bottle_1",
+      "user_id": "usr_student_1",
+      "reporter_name": "Alex Rivera",
+      "title": "Hydro Flask Insulated Water Bottle",
+      "category": "Bottles",
+      "description": "I lost my 32oz dark green insulated metal water bottle somewhere near the Central Library 2nd floor study carrels yesterday afternoon. It has a black flex cap.",
+      "location": "Central Library",
+      "coordinates": {
+        "lat": 37.7749,
+        "lng": -122.4194
+      },
+      "lost_at": "Yesterday, 3:30 PM",
+      "image_url": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=600&q=80",
+      "private_clue": "There is a small circular white NASA astronaut sticker near the bottom base, and a shallow scratch right under the logo.",
+      "fingerprint": {
+        "object_type": "Insulated Water Bottle",
+        "brand": "Hydro Flask",
+        "primary_color": "Dark Green",
+        "secondary_colors": [
+          "Black"
+        ],
+        "material": "Stainless Steel",
+        "shape_size": "Tall Cylindrical 32oz",
+        "visible_text": [
+          "Hydro Flask"
+        ],
+        "logos": [
+          "Hydro Flask jumping person crest"
+        ],
+        "distinctive_marks": [
+          "Small white sticker near base",
+          "Shallow scratch under logo"
+        ],
+        "accessories": [
+          "Black flex cap"
+        ],
+        "location": "Central Library",
+        "event_time": "Yesterday, 3:30 PM",
+        "confidence": 92.0
+      },
+      "status": "potential_match",
+      "created_at": "2026-10-04T05:29:01.101452"
+    },
+    {
+      "id": "lost_macbook_2",
+      "user_id": "usr_student_1",
+      "reporter_name": "Alex Rivera",
+      "title": "Space Gray MacBook Pro 14\"",
+      "category": "Electronics",
+      "description": "Left my 14-inch Apple laptop in a lecture hall or nearby lounge in the Main Academic Block during afternoon lab seminar.",
+      "location": "Main Academic Block",
+      "coordinates": {
+        "lat": 37.7752,
+        "lng": -122.418
+      },
+      "lost_at": "Yesterday, 4:15 PM",
+      "image_url": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80",
+      "private_clue": "Lock screen wallpaper is an astronomy photo of the James Webb deep field. Serial number starts with C02G4.",
+      "fingerprint": {
+        "object_type": "Laptop Computer",
+        "brand": "Apple",
+        "primary_color": "Space Gray",
+        "secondary_colors": [
+          "Black keyboard"
+        ],
+        "material": "Aluminum Unibody",
+        "shape_size": "Slim 14-inch Rectangular",
+        "visible_text": [
+          "MacBook Pro"
+        ],
+        "logos": [
+          "Apple Inc. logo"
+        ],
+        "distinctive_marks": [
+          "Custom vinyl sticker on palm rest"
+        ],
+        "accessories": [
+          "USB-C charging brick inside pouch"
+        ],
+        "location": "Main Academic Block",
+        "event_time": "Yesterday, 4:15 PM",
+        "embedding": null,
+        "confidence": 89.0
+      },
+      "status": "potential_match",
+      "created_at": "2026-10-04T05:29:01.101452"
+    },
+    {
+      "id": "lost_earbuds_3",
+      "user_id": "usr_student_1",
+      "reporter_name": "Alex Rivera",
+      "title": "Black Wireless Earbuds Charging Case",
+      "category": "Electronics",
+      "description": "Lost my compact black matte wireless earbuds case around the Student Cafeteria patio around lunchtime.",
+      "location": "Student Cafeteria",
+      "coordinates": {
+        "lat": 37.776,
+        "lng": -122.42
+      },
+      "lost_at": "Today, 12:30 PM",
+      "image_url": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80",
+      "private_clue": "Inside lid has initials 'AR' written in silver metallic sharpie pen.",
+      "fingerprint": {
+        "object_type": "Wireless Audio Earbuds",
+        "brand": "Sony",
+        "primary_color": "Matte Black",
+        "secondary_colors": [
+          "Copper accents"
+        ],
+        "material": "Polycarbonate",
+        "shape_size": "Compact Oval Charging Case",
+        "visible_text": [],
+        "logos": [
+          "Sony logo"
+        ],
+        "distinctive_marks": [
+          "Small rub mark on hinge"
+        ],
+        "accessories": [],
+        "location": "Student Cafeteria",
+        "event_time": "Today, 12:30 PM",
+        "confidence": 85.0
+      },
+      "status": "potential_match",
+      "created_at": "2026-10-05T05:29:01.101452"
+    },
+    {
+      "id": "lost_id_4",
+      "user_id": "usr_student_1",
+      "reporter_name": "Alex Rivera",
+      "title": "University Student ID Card",
+      "category": "ID / Cards",
+      "description": "Student identification badge for Alex Rivera with blue lanyard and plastic badge holder.",
+      "location": "Campus Green & Quad",
+      "coordinates": {
+        "lat": 37.775,
+        "lng": -122.419
+      },
+      "lost_at": "Two days ago",
+      "image_url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80",
+      "private_clue": "Student ID number ends with 8842, RFID tap card has a holographic crest on back.",
+      "fingerprint": {
+        "object_type": "Campus Identification Card",
+        "brand": null,
+        "primary_color": "Blue / White",
+        "secondary_colors": [],
+        "material": "PVC Plastic",
+        "shape_size": "Standard Card (CR80)",
+        "visible_text": [
+          "Alex Rivera",
+          "University ID"
+        ],
+        "logos": [
+          "University Seal"
+        ],
+        "distinctive_marks": [
+          "Navy blue lanyard with breakaway clip"
+        ],
+        "accessories": [
+          "Transparent badge protector"
+        ],
+        "location": "Campus Green & Quad",
+        "event_time": "Two days ago",
+        "confidence": 94.0
+      },
+      "status": "recovered",
+      "created_at": "2026-10-03T05:29:01.101452"
+    },
+    {
+      "user_id": "usr_student_1",
+      "reporter_name": "Alex Rivera",
+      "title": "Dark Green Insulated Bottle",
+      "category": "Bottles",
+      "description": "Lost my tall green metal vacuum bottle with black flex cap near the 2nd floor library.",
+      "location": "Central Library",
+      "coordinates": {
+        "lat": 37.7749,
+        "lng": -122.4194
+      },
+      "lost_at": "Yesterday, 3:00 PM",
+      "image_url": "https://images.unsplash.com/photo-1602143407151-7111542de6e8",
+      "private_clue": "Underneath the base there is a NASA astronaut decal.",
+      "status": "recovered",
+      "fingerprint": {
+        "object_type": "Insulated Water Bottle",
+        "brand": null,
+        "primary_color": "Dark Green",
+        "secondary_colors": [],
+        "material": "Metal",
+        "shape_size": "Tall Cylindrical",
+        "visible_text": [],
+        "logos": [],
+        "distinctive_marks": [
+          "Small white sticker near base"
+        ],
+        "accessories": [],
+        "location": "Central Library",
+        "event_time": "Yesterday, 3:00 PM",
+        "embedding": null,
+        "confidence": 86.5
+      },
+      "id": "lost_3d943fb9",
+      "created_at": "2026-10-05T05:29:49.875292"
+    },
+    {
+      "user_id": "usr_student_1",
+      "reporter_name": "Alex Rivera",
+      "title": "Dark Green Insulated Bottle",
+      "category": "Bottles",
+      "description": "Lost my tall green metal vacuum bottle with black flex cap near the 2nd floor library.",
+      "location": "Central Library",
+      "coordinates": {
+        "lat": 37.7749,
+        "lng": -122.4194
+      },
+      "lost_at": "Yesterday, 3:00 PM",
+      "image_url": "https://images.unsplash.com/photo-1602143407151-7111542de6e8",
+      "private_clue": "Underneath the base there is a NASA astronaut decal.",
+      "status": "recovered",
+      "fingerprint": {
+        "object_type": "Insulated Water Bottle",
+        "brand": null,
+        "primary_color": "Dark Green",
+        "secondary_colors": [],
+        "material": "Metal",
+        "shape_size": "Tall Cylindrical",
+        "visible_text": [],
+        "logos": [],
+        "distinctive_marks": [
+          "Dent on bottom edge"
+        ],
+        "accessories": [],
+        "location": "Central Library",
+        "event_time": "Yesterday, 3:00 PM",
+        "embedding": null,
+        "confidence": 86.5
+      },
+      "id": "lost_27ae8282",
+      "created_at": "2026-10-05T08:08:01.127738"
+    }
+  ],
+  "found_items": [
+    {
+      "id": "found_earbuds_301",
+      "reported_by": "usr_staff_1",
+      "reporter_name": "Officer Marcus Vance",
+      "title": "Sony WF-1000XM4 Charging Case (Black)",
+      "category": "Electronics",
+      "description": "Turned in from Cafeteria corner booth. Compact oval charging case, matte black with copper logo.",
+      "location": "Student Cafeteria",
+      "coordinates": {
+        "lat": 37.776,
+        "lng": -122.42
+      },
+      "found_at": "Today, 1:15 PM",
+      "image_url": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80",
+      "custody_location": "Main Dispatch Desk • Drawer 1",
+      "fingerprint": {
+        "object_type": "Wireless Audio Earbuds",
+        "brand": "Sony",
+        "primary_color": "Matte Black",
+        "secondary_colors": [
+          "Copper accent"
+        ],
+        "material": "Polycarbonate",
+        "shape_size": "Compact Oval Charging Case",
+        "visible_text": [
+          "SONY"
+        ],
+        "logos": [
+          "Sony branding"
+        ],
+        "distinctive_marks": [
+          "Small rub mark on hinge"
+        ],
+        "accessories": [],
+        "location": "Student Cafeteria",
+        "event_time": "Today, 1:15 PM",
+        "confidence": 90.0
+      },
+      "status": "open",
+      "created_at": "2026-10-05T05:29:01.101452"
+    },
+    {
+      "id": "found_earbuds_302",
+      "reported_by": "usr_staff_1",
+      "reporter_name": "Campus Staff",
+      "title": "Anker Soundcore Earbuds Case (Black)",
+      "category": "Electronics",
+      "description": "Found near Cafeteria beverage station.",
+      "location": "Student Cafeteria",
+      "coordinates": {
+        "lat": 37.776,
+        "lng": -122.42
+      },
+      "found_at": "Today, 12:45 PM",
+      "image_url": "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?auto=format&fit=crop&w=600&q=80",
+      "custody_location": "Main Dispatch Desk • Drawer 1",
+      "fingerprint": {
+        "object_type": "Wireless Audio Earbuds",
+        "brand": "Anker",
+        "primary_color": "Matte Black",
+        "secondary_colors": [],
+        "material": "Plastic",
+        "shape_size": "Compact Pebble Case",
+        "visible_text": [
+          "soundcore"
+        ],
+        "logos": [
+          "Soundcore symbol"
+        ],
+        "distinctive_marks": [
+          "Neon green wrist cord attached"
+        ],
+        "accessories": [
+          "Neon green cord"
+        ],
+        "location": "Student Cafeteria",
+        "event_time": "Today, 12:45 PM",
+        "confidence": 84.0
+      },
+      "status": "open",
+      "created_at": "2026-10-05T05:29:01.101452"
+    },
+    {
+      "id": "found_keys_601",
+      "reported_by": "usr_student_1",
+      "reporter_name": "Maya Patel",
+      "title": "Set of 4 Keys with Blue Subaru Fob",
+      "category": "Keys",
+      "description": "Found dropped in North Parking Area near electric vehicle chargers.",
+      "location": "North Parking Area",
+      "coordinates": {
+        "lat": 37.774,
+        "lng": -122.421
+      },
+      "found_at": "Today, 9:00 AM",
+      "image_url": "https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&w=600&q=80",
+      "custody_location": "Parking Office Dispatch",
+      "fingerprint": {
+        "object_type": "Keychain / Keys",
+        "brand": "Subaru",
+        "primary_color": "Silver / Black",
+        "secondary_colors": [
+          "Blue fob"
+        ],
+        "material": "Metal / Plastic",
+        "shape_size": "Key Ring with 4 Keys",
+        "visible_text": [],
+        "logos": [
+          "Subaru constellation star logo"
+        ],
+        "distinctive_marks": [
+          "Mini brass bottle opener attached"
+        ],
+        "accessories": [
+          "Blue fabric braided lanyard"
+        ],
+        "location": "North Parking Area",
+        "event_time": "Today, 9:00 AM",
+        "confidence": 88.0
+      },
+      "status": "open",
+      "created_at": "2026-10-05T05:29:01.101452"
+    },
+    {
+      "id": "found_bottle_101",
+      "reported_by": "usr_staff_1",
+      "reporter_name": "Officer Marcus Vance",
+      "title": "Dark Green Metal Insulated Flask",
+      "category": "Bottles",
+      "description": "Found a dark green insulated vacuum bottle left on study desk 14 on the Central Library 2nd floor. Metal body with black screw cap.",
+      "location": "Central Library",
+      "coordinates": {
+        "lat": 37.7749,
+        "lng": -122.4194
+      },
+      "found_at": "Yesterday, 5:42 PM",
+      "image_url": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=600&q=80",
+      "custody_location": "Central Library Information Desk • Bin A-14",
+      "fingerprint": {
+        "object_type": "Insulated Water Bottle",
+        "brand": "Hydro Flask",
+        "primary_color": "Dark Green",
+        "secondary_colors": [
+          "Black lid"
+        ],
+        "material": "Stainless Steel",
+        "shape_size": "Tall Cylindrical",
+        "visible_text": [
+          "Hydro Flask"
+        ],
+        "logos": [
+          "Hydro Flask crest"
+        ],
+        "distinctive_marks": [
+          "Small white sticker near base",
+          "Scuff mark below branding"
+        ],
+        "accessories": [
+          "Black flex loop cap"
+        ],
+        "location": "Central Library",
+        "event_time": "Yesterday, 5:42 PM",
+        "confidence": 91.0
+      },
+      "status": "recovered",
+      "created_at": "2026-10-04T05:29:01.101452"
+    },
+    {
+      "id": "found_bottle_102",
+      "reported_by": "usr_staff_1",
+      "reporter_name": "Campus Janitorial Staff",
+      "title": "Olive Green Stanley Travel Tumbler",
+      "category": "Bottles",
+      "description": "Left on bench outside cafeteria. Large metal tumbler with straw opening.",
+      "location": "Student Cafeteria",
+      "coordinates": {
+        "lat": 37.776,
+        "lng": -122.42
+      },
+      "found_at": "Yesterday, 6:15 PM",
+      "image_url": "https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=600&q=80",
+      "custody_location": "Campus Security Office • Locker 03",
+      "fingerprint": {
+        "object_type": "Insulated Water Bottle",
+        "brand": "Stanley",
+        "primary_color": "Olive Green",
+        "secondary_colors": [
+          "Silver rim"
+        ],
+        "material": "Stainless Steel",
+        "shape_size": "Tapered Tumbler with handle",
+        "visible_text": [
+          "Stanley"
+        ],
+        "logos": [
+          "Stanley winged bear logo"
+        ],
+        "distinctive_marks": [
+          "Dent on bottom edge"
+        ],
+        "accessories": [
+          "Reusable plastic straw"
+        ],
+        "location": "Student Cafeteria",
+        "event_time": "Yesterday, 6:15 PM",
+        "confidence": 88.0
+      },
+      "status": "recovered",
+      "created_at": "2026-10-04T05:29:01.101452"
+    },
+    {
+      "id": "found_laptop_201",
+      "reported_by": "usr_staff_1",
+      "reporter_name": "Campus Security Staff",
+      "title": "Silver Apple Laptop with Sticker",
+      "category": "Electronics",
+      "description": "Handed in by cleaner from Lecture Hall 4 in Main Academic Block. Modern slim Apple notebook in space gray tone.",
+      "location": "Main Academic Block",
+      "coordinates": {
+        "lat": 37.7752,
+        "lng": -122.418
+      },
+      "found_at": "Yesterday, 6:00 PM",
+      "image_url": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80",
+      "custody_location": "Central Lost & Found Vault • Safe A-02",
+      "fingerprint": {
+        "object_type": "Laptop Computer",
+        "brand": "Apple",
+        "primary_color": "Space Gray",
+        "secondary_colors": [
+          "Black keys"
+        ],
+        "material": "Aluminum Unibody",
+        "shape_size": "Slim 14-inch Rectangular",
+        "visible_text": [],
+        "logos": [
+          "Apple Inc. logo"
+        ],
+        "distinctive_marks": [
+          "Custom sticker on palm rest"
+        ],
+        "accessories": [],
+        "location": "Main Academic Block",
+        "event_time": "Yesterday, 6:00 PM",
+        "confidence": 93.0
+      },
+      "status": "open",
+      "created_at": "2026-10-04T05:29:01.101452"
+    },
+    {
+      "id": "found_calc_501",
+      "reported_by": "usr_staff_1",
+      "reporter_name": "TA Daniel Kim",
+      "title": "TI-84 Plus CE Graphing Calculator",
+      "category": "Electronics",
+      "description": "Found in Science & Computing Labs bench 3. Black casing with slide cover.",
+      "location": "Science & Computing Labs",
+      "coordinates": {
+        "lat": 37.7755,
+        "lng": -122.419
+      },
+      "found_at": "Yesterday, 2:00 PM",
+      "image_url": "https://images.unsplash.com/photo-1594980596870-8aa52a78d8cd?auto=format&fit=crop&w=600&q=80",
+      "custody_location": "Lab 101 Custody Shelf",
+      "fingerprint": {
+        "object_type": "Scientific Calculator",
+        "brand": "Texas Instruments",
+        "primary_color": "Black",
+        "secondary_colors": [
+          "White keys"
+        ],
+        "material": "Hard Shell Plastic",
+        "shape_size": "Rectangular Calculator",
+        "visible_text": [
+          "TI-84 Plus CE"
+        ],
+        "logos": [
+          "Texas Instruments"
+        ],
+        "distinctive_marks": [
+          "Small periodic table sticker on back of cover"
+        ],
+        "accessories": [
+          "Slide protective cover"
+        ],
+        "location": "Science & Computing Labs",
+        "event_time": "Yesterday, 2:00 PM",
+        "confidence": 91.0
+      },
+      "status": "open",
+      "created_at": "2026-10-04T05:29:01.101452"
+    },
+    {
+      "id": "found_bottle_103",
+      "reported_by": "usr_student_1",
+      "reporter_name": "Priya Sharma",
+      "title": "Dark Sage Klean Kanteen Bottle",
+      "category": "Bottles",
+      "description": "Found on ground floor study table in Science & Computing Labs.",
+      "location": "Science & Computing Labs",
+      "coordinates": {
+        "lat": 37.7755,
+        "lng": -122.419
+      },
+      "found_at": "Two days ago",
+      "image_url": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80",
+      "custody_location": "Science Lab Admin Room 102",
+      "fingerprint": {
+        "object_type": "Insulated Water Bottle",
+        "brand": "Klean Kanteen",
+        "primary_color": "Dark Green",
+        "secondary_colors": [
+          "Bamboo cap"
+        ],
+        "material": "Stainless Steel",
+        "shape_size": "Tall Cylindrical Slim",
+        "visible_text": [
+          "Klean Kanteen"
+        ],
+        "logos": [
+          "Klean Kanteen droplet logo"
+        ],
+        "distinctive_marks": [
+          "Carabiner clip attached to loop"
+        ],
+        "accessories": [
+          "Metal carabiner"
+        ],
+        "location": "Science & Computing Labs",
+        "event_time": "Two days ago",
+        "confidence": 86.0
+      },
+      "status": "open",
+      "created_at": "2026-10-03T05:29:01.101452"
+    },
+    {
+      "id": "found_id_401",
+      "reported_by": "usr_staff_1",
+      "reporter_name": "Officer Marcus Vance",
+      "title": "Student Identification Badge (Alex Rivera)",
+      "category": "ID / Cards",
+      "description": "Found near central fountain on Campus Green. Blue university lanyard attached.",
+      "location": "Campus Green & Quad",
+      "coordinates": {
+        "lat": 37.775,
+        "lng": -122.419
+      },
+      "found_at": "Two days ago, 4:00 PM",
+      "image_url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80",
+      "custody_location": "Security Desk • Card Hold Slot 5",
+      "fingerprint": {
+        "object_type": "Campus Identification Card",
+        "brand": null,
+        "primary_color": "Blue / White",
+        "secondary_colors": [],
+        "material": "PVC Plastic",
+        "shape_size": "Standard Card (CR80)",
+        "visible_text": [
+          "Alex Rivera",
+          "Engineering"
+        ],
+        "logos": [
+          "University Seal"
+        ],
+        "distinctive_marks": [
+          "Navy blue lanyard with breakaway clip"
+        ],
+        "accessories": [
+          "Plastic sleeve"
+        ],
+        "location": "Campus Green & Quad",
+        "event_time": "Two days ago, 4:00 PM",
+        "confidence": 98.0
+      },
+      "status": "recovered",
+      "created_at": "2026-10-03T05:29:01.101452"
+    },
+    {
+      "id": "found_backpack_701",
+      "reported_by": "usr_staff_1",
+      "reporter_name": "Officer Marcus Vance",
+      "title": "Navy Blue Fjallraven Kanken Backpack",
+      "category": "Bags",
+      "description": "Found unattended in University Auditorium foyer following guest lecture.",
+      "location": "University Auditorium",
+      "coordinates": {
+        "lat": 37.7758,
+        "lng": -122.4175
+      },
+      "found_at": "Two days ago",
+      "image_url": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80",
+      "custody_location": "Auditorium Security Vault",
+      "fingerprint": {
+        "object_type": "Backpack / Daypack",
+        "brand": "Fjallraven",
+        "primary_color": "Navy Blue",
+        "secondary_colors": [
+          "Red / White logo"
+        ],
+        "material": "Vinylon Canvas",
+        "shape_size": "Square 16L Backpack",
+        "visible_text": [
+          "KANKEN"
+        ],
+        "logos": [
+          "Arctic fox circular patch"
+        ],
+        "distinctive_marks": [
+          "Small enamel bee pin on front pocket zipper"
+        ],
+        "accessories": [
+          "Seat pad in internal back sleeve"
+        ],
+        "location": "University Auditorium",
+        "event_time": "Two days ago",
+        "confidence": 95.0
+      },
+      "status": "recovered",
+      "created_at": "2026-10-03T05:29:01.101452"
+    }
+  ],
+  "claims": [
+    {
+      "found_item_id": "found_bottle_101",
+      "lost_item_id": "lost_3d943fb9",
+      "claimant_id": "usr_student_1",
+      "claimant_name": "Alex Rivera",
+      "claimant_email": "student@traceback.demo",
+      "identifying_evidence": "My bottle has a NASA astronaut decal sticker near the base and a tiny scratch.",
+      "proof_image_url": null,
+      "verification_score": 98.0,
+      "verification_summary": "The claimant provided specific identifying information aligning closely with the protected ownership clue.",
+      "verification_alignments": [
+        "High correlation with protected owner private clue",
+        "Correctly identified physical detail: Small white sticker near base",
+        "Semantic coherence with known item specifics"
+      ],
+      "verification_concerns": [
+        "Physical detail 'Scuff mark below branding' was not corroborated in claim text"
+      ],
+      "recommendation": "RECOMMEND APPROVAL: Strong corroboration with private evidence",
+      "status": "handed_over",
+      "reviewed_by": "usr_staff_1",
+      "reviewer_name": "Officer Marcus Vance",
+      "review_reason": "Student provided physical verification of decal; confirmed matching custody item.",
+      "reviewed_at": "2026-10-05T05:29:49.928572",
+      "id": "claim_0940db3a",
+      "created_at": "2026-10-05T05:29:49.911295",
+      "handover_by": "Officer Marcus Vance",
+      "handover_at": "2026-10-05T05:29:49.943135",
+      "handover_notes": "Student showed ID and picked up from Central Library bin A-14."
+    },
+    {
+      "id": "claim_demo_1",
+      "found_item_id": "found_id_401",
+      "lost_item_id": "lost_id_4",
+      "claimant_id": "usr_student_1",
+      "claimant_name": "Alex Rivera",
+      "claimant_email": "student@traceback.demo",
+      "identifying_evidence": "My student ID has my full name Alex Rivera. The student number ends in 8842, and there is a holographic sticker on the back of the tap card.",
+      "proof_image_url": null,
+      "verification_score": 96.0,
+      "verification_summary": "Definitive verification: Claimant identified exact name, partial student ID number, and card physical attributes.",
+      "verification_alignments": [
+        "Full name matches item record exactly",
+        "Corroborates protected owner student ID digits",
+        "Identified holographic tap seal on back"
+      ],
+      "verification_concerns": [],
+      "recommendation": "RECOMMEND APPROVAL: Strong corroboration with private evidence",
+      "status": "handed_over",
+      "reviewed_by": "usr_staff_1",
+      "reviewer_name": "Officer Marcus Vance",
+      "review_reason": "Verified against university registrar enrollment photo.",
+      "reviewed_at": "2026-10-04T05:29:01.101452",
+      "created_at": "2026-10-04T05:29:01.101452",
+      "handover_by": "Officer Marcus Vance",
+      "handover_at": "2026-10-05T08:01:20.803918",
+      "handover_notes": "Handed over to Alex Rivera. Photo ID checked."
+    },
+    {
+      "found_item_id": "found_bottle_102",
+      "lost_item_id": "lost_27ae8282",
+      "claimant_id": "usr_student_1",
+      "claimant_name": "Alex Rivera",
+      "claimant_email": "student@traceback.demo",
+      "identifying_evidence": "My bottle has a NASA astronaut decal sticker near the base and a tiny scratch.",
+      "proof_image_url": null,
+      "verification_score": 95.0,
+      "verification_summary": "The claimant provided specific identifying information aligning closely with the protected ownership clue.",
+      "verification_alignments": [
+        "High correlation with protected owner private clue",
+        "Semantic coherence with known item specifics"
+      ],
+      "verification_concerns": [
+        "Physical detail 'Dent on bottom edge' was not corroborated in claim text"
+      ],
+      "recommendation": "RECOMMEND APPROVAL: Strong corroboration with private evidence",
+      "status": "handed_over",
+      "reviewed_by": "usr_staff_1",
+      "reviewer_name": "Officer Marcus Vance",
+      "review_reason": "Student provided physical verification of decal; confirmed matching custody item.",
+      "reviewed_at": "2026-10-05T08:08:01.207065",
+      "id": "claim_276b246b",
+      "created_at": "2026-10-05T08:08:01.179247",
+      "handover_by": "Officer Marcus Vance",
+      "handover_at": "2026-10-05T08:08:01.229094",
+      "handover_notes": "Student showed ID and picked up from Central Library bin A-14."
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notif_1",
+      "user_id": "usr_student_1",
+      "title": "High Confidence Match Found",
+      "message": "TraceBack discovered an 88% match for your Hydro Flask water bottle at the Central Library.",
+      "type": "match_found",
+      "link": "/matches/lost_bottle_1",
+      "is_read": false,
+      "created_at": "2026-10-04T05:29:01.101452"
+    },
+    {
+      "id": "notif_2",
+      "user_id": "usr_student_1",
+      "title": "Claim Approved!",
+      "message": "Your claim for University Student ID Card was approved by Officer Marcus Vance. Ready for handover at Main Block Dispatch.",
+      "type": "claim_approved",
+      "link": "/claims",
+      "is_read": false,
+      "created_at": "2026-10-04T05:29:01.101452"
+    },
+    {
+      "id": "notif_3",
+      "user_id": "usr_student_1",
+      "title": "Nearby Report Alert",
+      "message": "A found item was reported within 120m of your last known location at Student Cafeteria.",
+      "type": "nearby_alert",
+      "link": "/found-items",
+      "is_read": true,
+      "created_at": "2026-10-05T05:29:01.101452"
+    },
+    {
+      "user_id": "usr_student_1",
+      "title": "Potential Match Found (85%)",
+      "message": "TraceBack discovered a candidate for your Dark Green Insulated Bottle at Central Library.",
+      "type": "match_found",
+      "link": "/matches/lost_3d943fb9",
+      "id": "notif_7b9c2629",
+      "created_at": "2026-10-05T05:29:49.886946",
+      "is_read": false
+    },
+    {
+      "user_id": "usr_student_1",
+      "title": "Claim Submitted",
+      "message": "Your claim for 'Dark Green Metal Insulated Flask' is pending campus staff review.",
+      "type": "claim_submitted",
+      "link": "/claims",
+      "id": "notif_5749f889",
+      "created_at": "2026-10-05T05:29:49.918088",
+      "is_read": false
+    },
+    {
+      "user_id": "usr_staff_1",
+      "title": "New Claim Pending Review",
+      "message": "Alex Rivera submitted a claim for 'Dark Green Metal Insulated Flask'. AI Confidence: 98.0%",
+      "type": "claim_submitted",
+      "link": "/staff",
+      "id": "notif_893873b8",
+      "created_at": "2026-10-05T05:29:49.919290",
+      "is_read": true
+    },
+    {
+      "user_id": "usr_admin_1",
+      "title": "New Claim Pending Review",
+      "message": "Alex Rivera submitted a claim for 'Dark Green Metal Insulated Flask'. AI Confidence: 98.0%",
+      "type": "claim_submitted",
+      "link": "/staff",
+      "id": "notif_4f08886f",
+      "created_at": "2026-10-05T05:29:49.921724",
+      "is_read": false
+    },
+    {
+      "user_id": "usr_student_1",
+      "title": "Claim Approved!",
+      "message": "Your claim was approved by Officer Marcus Vance. Please proceed to campus custody for collection.",
+      "type": "claim_approved",
+      "link": "/claims",
+      "id": "notif_59ab592d",
+      "created_at": "2026-10-05T05:29:49.935260",
+      "is_read": false
+    },
+    {
+      "user_id": "usr_student_1",
+      "title": "Item Recovered! ✓",
+      "message": "Your item has been successfully handed over by Officer Marcus Vance. Another trace completed!",
+      "type": "item_recovered",
+      "link": "/my-reports",
+      "id": "notif_1e6d2b7a",
+      "created_at": "2026-10-05T05:29:49.948427",
+      "is_read": false
+    },
+    {
+      "user_id": "usr_student_1",
+      "title": "Item Recovered! ✓",
+      "message": "Your item has been successfully handed over by Officer Marcus Vance. Another trace completed!",
+      "type": "item_recovered",
+      "link": "/my-reports",
+      "id": "notif_dcfe4fd0",
+      "created_at": "2026-10-05T08:01:20.821677",
+      "is_read": false
+    },
+    {
+      "user_id": "usr_student_1",
+      "title": "Potential Match Found (75%)",
+      "message": "TraceBack discovered a candidate for your Dark Green Insulated Bottle at Student Cafeteria.",
+      "type": "match_found",
+      "link": "/matches/lost_27ae8282",
+      "id": "notif_02b0306c",
+      "created_at": "2026-10-05T08:08:01.140590",
+      "is_read": false
+    },
+    {
+      "user_id": "usr_student_1",
+      "title": "Claim Submitted",
+      "message": "Your claim for 'Olive Green Stanley Travel Tumbler' is pending campus staff review.",
+      "type": "claim_submitted",
+      "link": "/claims",
+      "id": "notif_bc284b95",
+      "created_at": "2026-10-05T08:08:01.187876",
+      "is_read": false
+    },
+    {
+      "user_id": "usr_staff_1",
+      "title": "New Claim Pending Review",
+      "message": "Alex Rivera submitted a claim for 'Olive Green Stanley Travel Tumbler'. AI Confidence: 95.0%",
+      "type": "claim_submitted",
+      "link": "/staff",
+      "id": "notif_1cd85ff5",
+      "created_at": "2026-10-05T08:08:01.191124",
+      "is_read": false
+    },
+    {
+      "user_id": "usr_admin_1",
+      "title": "New Claim Pending Review",
+      "message": "Alex Rivera submitted a claim for 'Olive Green Stanley Travel Tumbler'. AI Confidence: 95.0%",
+      "type": "claim_submitted",
+      "link": "/staff",
+      "id": "notif_8804c038",
+      "created_at": "2026-10-05T08:08:01.195137",
+      "is_read": false
+    },
+    {
+      "user_id": "usr_student_1",
+      "title": "Claim Approved!",
+      "message": "Your claim was approved by Officer Marcus Vance. Please proceed to campus custody for collection.",
+      "type": "claim_approved",
+      "link": "/claims",
+      "id": "notif_a3ed8cb8",
+      "created_at": "2026-10-05T08:08:01.217400",
+      "is_read": false
+    },
+    {
+      "user_id": "usr_student_1",
+      "title": "Item Recovered! ✓",
+      "message": "Your item has been successfully handed over by Officer Marcus Vance. Another trace completed!",
+      "type": "item_recovered",
+      "link": "/my-reports",
+      "id": "notif_dd2bf1f4",
+      "created_at": "2026-10-05T08:08:01.238364",
+      "is_read": false
+    }
+  ],
+  "audit_logs": [
+    {
+      "id": "audit_1",
+      "actor_id": "usr_student_1",
+      "actor_name": "Alex Rivera",
+      "actor_role": "student",
+      "action": "REPORT_LOST_ITEM",
+      "target_type": "lost_item",
+      "target_id": "lost_bottle_1",
+      "timestamp": "2026-10-04T05:29:01.101452",
+      "metadata": {
+        "category": "Bottles",
+        "location": "Central Library"
+      }
+    },
+    {
+      "id": "audit_2",
+      "actor_id": "usr_system",
+      "actor_name": "TraceBack Intelligence",
+      "actor_role": "system",
+      "action": "FINGERPRINT_GENERATED",
+      "target_type": "fingerprint",
+      "target_id": "lost_bottle_1",
+      "timestamp": "2026-10-04T05:29:01.101452",
+      "metadata": {
+        "confidence": 92.0,
+        "engine": "multimodal_vision_nlp"
+      }
+    },
+    {
+      "id": "audit_3",
+      "actor_id": "usr_student_1",
+      "actor_name": "Alex Rivera",
+      "actor_role": "student",
+      "action": "SUBMIT_CLAIM",
+      "target_type": "claim",
+      "target_id": "claim_demo_1",
+      "timestamp": "2026-10-04T05:29:01.101452",
+      "metadata": {
+        "found_item_id": "found_id_401",
+        "verification_score": 96.0
+      }
+    },
+    {
+      "id": "audit_4",
+      "actor_id": "usr_staff_1",
+      "actor_name": "Officer Marcus Vance",
+      "actor_role": "staff",
+      "action": "APPROVE_CLAIM",
+      "target_type": "claim",
+      "target_id": "claim_demo_1",
+      "timestamp": "2026-10-04T05:29:01.101452",
+      "metadata": {
+        "decision": "approved",
+        "reason": "Verified against enrollment registry"
+      }
+    },
+    {
+      "id": "audit_5",
+      "actor_id": "usr_staff_1",
+      "actor_name": "Officer Marcus Vance",
+      "actor_role": "staff",
+      "action": "MARK_RECOVERED",
+      "target_type": "item",
+      "target_id": "found_backpack_701",
+      "timestamp": "2026-10-03T05:29:01.101452",
+      "metadata": {
+        "recipient": "Samantha Wells",
+        "handover_station": "Auditorium Security Vault"
+      }
+    },
+    {
+      "id": "audit_2659e4ec",
+      "actor_id": "usr_student_1",
+      "actor_name": "Alex Rivera",
+      "actor_role": "student",
+      "action": "USER_LOGIN",
+      "target_type": "user",
+      "target_id": "usr_student_1",
+      "timestamp": "2026-10-05T05:29:49.855120",
+      "metadata": {}
+    },
+    {
+      "id": "audit_e7880dea",
+      "actor_id": "usr_staff_1",
+      "actor_name": "Officer Marcus Vance",
+      "actor_role": "staff",
+      "action": "USER_LOGIN",
+      "target_type": "user",
+      "target_id": "usr_staff_1",
+      "timestamp": "2026-10-05T05:29:49.860461",
+      "metadata": {}
+    },
+    {
+      "id": "audit_e50ca30c",
+      "actor_id": "usr_student_1",
+      "actor_name": "Alex Rivera",
+      "actor_role": "student",
+      "action": "REPORT_LOST_ITEM",
+      "target_type": "lost_item",
+      "target_id": "lost_3d943fb9",
+      "timestamp": "2026-10-05T05:29:49.881724",
+      "metadata": {
+        "category": "Bottles",
+        "location": "Central Library"
+      }
+    },
+    {
+      "id": "audit_81bbf9e7",
+      "actor_id": "usr_student_1",
+      "actor_name": "Alex Rivera",
+      "actor_role": "student",
+      "action": "DETECTIVE_QUESTION_ANSWERED",
+      "target_type": "lost_item",
+      "target_id": "lost_3d943fb9",
+      "timestamp": "2026-10-05T05:29:49.901467",
+      "metadata": {
+        "answer": "YES",
+        "attribute": "mark:Small white sticker near base"
+      }
+    },
+    {
+      "id": "audit_6bfe9691",
+      "actor_id": "usr_student_1",
+      "actor_name": "Alex Rivera",
+      "actor_role": "student",
+      "action": "SUBMIT_CLAIM",
+      "target_type": "claim",
+      "target_id": "claim_0940db3a",
+      "timestamp": "2026-10-05T05:29:49.922955",
+      "metadata": {
+        "found_item_id": "found_bottle_101",
+        "verification_score": 98.0
+      }
+    },
+    {
+      "id": "audit_debd40a7",
+      "actor_id": "usr_staff_1",
+      "actor_name": "Officer Marcus Vance",
+      "actor_role": "staff",
+      "action": "CLAIM_APPROVED",
+      "target_type": "claim",
+      "target_id": "claim_0940db3a",
+      "timestamp": "2026-10-05T05:29:49.937487",
+      "metadata": {
+        "reason": "Student provided physical verification of decal; confirmed matching custody item.",
+        "claimant_id": "usr_student_1",
+        "found_item_id": "found_bottle_101"
+      }
+    },
+    {
+      "id": "audit_61d8cb64",
+      "actor_id": "usr_staff_1",
+      "actor_name": "Officer Marcus Vance",
+      "actor_role": "staff",
+      "action": "MARK_RECOVERED",
+      "target_type": "item",
+      "target_id": "found_bottle_101",
+      "timestamp": "2026-10-05T05:29:49.949790",
+      "metadata": {
+        "claim_id": "claim_0940db3a",
+        "recipient": "Alex Rivera",
+        "notes": "Student showed ID and picked up from Central Library bin A-14."
+      }
+    },
+    {
+      "id": "audit_3fb8bb35",
+      "actor_id": "usr_student_1",
+      "actor_name": "Alex Rivera",
+      "actor_role": "student",
+      "action": "USER_LOGIN",
+      "target_type": "user",
+      "target_id": "usr_student_1",
+      "timestamp": "2026-10-05T06:03:44.192926",
+      "metadata": {}
+    },
+    {
+      "id": "audit_32bca243",
+      "actor_id": "usr_student_1",
+      "actor_name": "Alex Rivera",
+      "actor_role": "student",
+      "action": "USER_LOGIN",
+      "target_type": "user",
+      "target_id": "usr_student_1",
+      "timestamp": "2026-10-05T06:03:44.211780",
+      "metadata": {}
+    },
+    {
+      "id": "audit_c4099cde",
+      "actor_id": "usr_student_1",
+      "actor_name": "Alex Rivera",
+      "actor_role": "student",
+      "action": "DETECTIVE_QUESTION_ANSWERED",
+      "target_type": "lost_item",
+      "target_id": "lost_macbook_2",
+      "timestamp": "2026-10-05T06:08:12.194475",
+      "metadata": {
+        "answer": "I DON'T KNOW",
+        "attribute": "mark:Custom sticker on palm rest"
+      }
+    },
+    {
+      "id": "audit_99065b33",
+      "actor_id": "usr_staff_1",
+      "actor_name": "Officer Marcus Vance",
+      "actor_role": "staff",
+      "action": "USER_LOGIN",
+      "target_type": "user",
+      "target_id": "usr_staff_1",
+      "timestamp": "2026-10-05T08:00:32.463906",
+      "metadata": {}
+    },
+    {
+      "id": "audit_5b6f49c9",
+      "actor_id": "usr_staff_1",
+      "actor_name": "Officer Marcus Vance",
+      "actor_role": "staff",
+      "action": "MARK_RECOVERED",
+      "target_type": "item",
+      "target_id": "found_id_401",
+      "timestamp": "2026-10-05T08:01:20.824895",
+      "metadata": {
+        "claim_id": "claim_demo_1",
+        "recipient": "Alex Rivera",
+        "notes": "Handed over to Alex Rivera. Photo ID checked."
+      }
+    },
+    {
+      "id": "audit_70c6a805",
+      "actor_id": "usr_admin_1",
+      "actor_name": "Dr. Sarah Chen",
+      "actor_role": "admin",
+      "action": "USER_LOGIN",
+      "target_type": "user",
+      "target_id": "usr_admin_1",
+      "timestamp": "2026-10-05T08:01:47.079465",
+      "metadata": {}
+    },
+    {
+      "id": "audit_9c869cd1",
+      "actor_id": "usr_student_1",
+      "actor_name": "Alex Rivera",
+      "actor_role": "student",
+      "action": "USER_LOGIN",
+      "target_type": "user",
+      "target_id": "usr_student_1",
+      "timestamp": "2026-10-05T08:08:01.104736",
+      "metadata": {}
+    },
+    {
+      "id": "audit_fd9bbbb1",
+      "actor_id": "usr_staff_1",
+      "actor_name": "Officer Marcus Vance",
+      "actor_role": "staff",
+      "action": "USER_LOGIN",
+      "target_type": "user",
+      "target_id": "usr_staff_1",
+      "timestamp": "2026-10-05T08:08:01.112894",
+      "metadata": {}
+    },
+    {
+      "id": "audit_ce13c298",
+      "actor_id": "usr_student_1",
+      "actor_name": "Alex Rivera",
+      "actor_role": "student",
+      "action": "REPORT_LOST_ITEM",
+      "target_type": "lost_item",
+      "target_id": "lost_27ae8282",
+      "timestamp": "2026-10-05T08:08:01.135188",
+      "metadata": {
+        "category": "Bottles",
+        "location": "Central Library"
+      }
+    },
+    {
+      "id": "audit_7a0c21bf",
+      "actor_id": "usr_student_1",
+      "actor_name": "Alex Rivera",
+      "actor_role": "student",
+      "action": "DETECTIVE_QUESTION_ANSWERED",
+      "target_type": "lost_item",
+      "target_id": "lost_27ae8282",
+      "timestamp": "2026-10-05T08:08:01.162753",
+      "metadata": {
+        "answer": "YES",
+        "attribute": "mark:Dent on bottom edge"
+      }
+    },
+    {
+      "id": "audit_91aa9180",
+      "actor_id": "usr_student_1",
+      "actor_name": "Alex Rivera",
+      "actor_role": "student",
+      "action": "SUBMIT_CLAIM",
+      "target_type": "claim",
+      "target_id": "claim_276b246b",
+      "timestamp": "2026-10-05T08:08:01.198284",
+      "metadata": {
+        "found_item_id": "found_bottle_102",
+        "verification_score": 95.0
+      }
+    },
+    {
+      "id": "audit_54b30dec",
+      "actor_id": "usr_staff_1",
+      "actor_name": "Officer Marcus Vance",
+      "actor_role": "staff",
+      "action": "CLAIM_APPROVED",
+      "target_type": "claim",
+      "target_id": "claim_276b246b",
+      "timestamp": "2026-10-05T08:08:01.221139",
+      "metadata": {
+        "reason": "Student provided physical verification of decal; confirmed matching custody item.",
+        "claimant_id": "usr_student_1",
+        "found_item_id": "found_bottle_102"
+      }
+    },
+    {
+      "id": "audit_1e8ef4f3",
+      "actor_id": "usr_staff_1",
+      "actor_name": "Officer Marcus Vance",
+      "actor_role": "staff",
+      "action": "MARK_RECOVERED",
+      "target_type": "item",
+      "target_id": "found_bottle_102",
+      "timestamp": "2026-10-05T08:08:01.240616",
+      "metadata": {
+        "claim_id": "claim_276b246b",
+        "recipient": "Alex Rivera",
+        "notes": "Student showed ID and picked up from Central Library bin A-14."
+      }
+    }
+  ]
+}
